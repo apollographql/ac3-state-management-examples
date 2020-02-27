@@ -1,16 +1,8 @@
 import React from 'react'
-import { visibilityFilterVar, VisiblityFilter, Todos } from '../cache'
-import { gql, useQuery } from '@apollo/client'
-
-const GET_ALL_TODOS = gql`
-  query GetAllTodos {
-    todos {
-      id
-      text
-      completed
-    }
-  }
-`;
+import { visibilityFilterVar, VisiblityFilter, Todos, todosVar } from '../cache'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_TODOS } from './MainSection';
+import TodoList from '../components/TodoList';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter) {
@@ -26,12 +18,8 @@ function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos
 }
 
 export default function VisibleTodoList () {
-  const { data, error } = useQuery(GET_ALL_TODOS);
-  const filteredTodos = filterTodosByVisibility(visibilityFilterVar(), data);
+  const todos = todosVar();
+  const filteredTodos = filterTodosByVisibility(visibilityFilterVar(), todos);
 
-  return (
-    <div>
-      hi
-    </div>
-  )
+  return <TodoList filteredTodos={filteredTodos} actions={{}}/>;
 }

@@ -9,7 +9,7 @@ export const cache: InMemoryCache = new InMemoryCache({
             return todosVar();
           },
           merge (existing, incoming) {
-            
+            debugger;
           }
         },
         visibilityFilter () {

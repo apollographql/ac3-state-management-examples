@@ -48,3 +48,22 @@ It's common for when:
 
 - We're building something on the client-side and don't want to try to reach out to a remote GraphQL server yet because (A: it's not ready, B: we will never need one).
 
+## How to resolve data that is only on the client side
+
+Use the `@client` directive.
+
+```typescript
+client
+  .query({
+    query: gql`
+      {
+        todos { 
+          id @client
+          text @client
+          completed @client
+        }
+      }
+    `
+  })
+  .then(result => console.log(result));
+```

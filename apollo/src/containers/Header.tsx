@@ -1,10 +1,14 @@
 
 import React from 'react';
 import Header from '../components/Header'
-import { addTodo } from '../actions'
+import { todosVar } from '../cache';
 
-// export default connect(null, { addTodo })(Header)
+export default function () {
+  const addTodo = (text: string) => {
+    debugger;
+    // Handle the id using the way they've done it via redux
+    todosVar([{ text, completed: false, id: 1 }]);
+  };
 
-export default function HeaderAgain () {
-  return <div></div>
+  return <Header addTodo={addTodo} />;
 }
