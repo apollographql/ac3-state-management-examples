@@ -4,27 +4,17 @@ export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        todos () {
-          return todosVar();
+        todos: {
+          read () {
+            return todosVar();
+          },
+          merge (existing, incoming) {
+            
+          }
         },
         visibilityFilter () {
           return visibilityFilterVar();
         },
-        launches: {
-          merge(existing, incoming) {
-            let launches: Reference[] = [];
-            if (existing && existing.launches) {
-              launches = launches.concat(existing.launches);
-            }
-            if (incoming && incoming.launches) {
-              launches = launches.concat(incoming.launches);
-            }
-            return {
-              ...incoming,
-              launches
-            };
-          }
-        }
       }
     }
   }
@@ -44,7 +34,15 @@ export enum VisiblityFilter {
   SHOW_ACTIVE = "show_active"
 }
 
-export const todosVar = cache.makeVar<Todos>([]);
+const todosInitialValue: Todos = [
+  {
+    id: 0,
+    completed: false,
+    text: "Use Apollo Client 3"
+  }
+]
+
+export const todosVar = cache.makeVar<Todos>(todosInitialValue);
 
 export const visibilityFilterVar = cache.makeVar<VisiblityFilter>(
   VisiblityFilter.SHOW_ALL
