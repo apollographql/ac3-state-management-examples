@@ -6,9 +6,10 @@ import { ApolloProvider } from '@apollo/client';
 import 'todomvc-app-css/index.css'
 import { cache } from './cache';
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   cache,
-  link: ApolloLink.empty()
+  link: ApolloLink.empty(),
+  connectToDevTools: true,
 });
 
 render(

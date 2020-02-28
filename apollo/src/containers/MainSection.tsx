@@ -1,9 +1,9 @@
 
 import React from 'react'
-import * as TodoActions from '../actions'
 import MainSection from '../components/MainSection'
 import { gql, useQuery } from '@apollo/client'
-import { Todos, todosVar } from '../cache'
+import { Todos } from '../cache'
+import { completeAllTodos } from '../operations/completeAllTodos'
 
 export const GET_ALL_TODOS = gql`
   query GetAllTodos {
@@ -19,16 +19,12 @@ export default function Main () {
   const { data } = useQuery(GET_ALL_TODOS);
   const todos: Todos = data.todos;
 
-  const completeAllTodos = () => {
-    todosVar(todos.map((t) => ({ ...t, completed: true })))
-  }
-
   return (
     <MainSection
       todosCount={todos.length}
       completedCount={todos.filter(t => t.completed).length}
       actions={{
-        completeAllTodos: completeAllTodos
+        completeAllTodos
       }}
     />
   );

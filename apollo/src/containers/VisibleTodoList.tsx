@@ -1,8 +1,10 @@
+
 import React from 'react'
 import { visibilityFilterVar, VisiblityFilter, Todos, todosVar } from '../cache'
-import { useQuery } from '@apollo/client'
-import { GET_ALL_TODOS } from './MainSection';
 import TodoList from '../components/TodoList';
+import { completeTodo } from '../operations/completeTodo';
+import { deleteTodo } from '../operations/deleteTodo';
+import { editTodo } from '../operations/editTodo';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter) {
@@ -21,5 +23,11 @@ export default function VisibleTodoList () {
   const todos = todosVar();
   const filteredTodos = filterTodosByVisibility(visibilityFilterVar(), todos);
 
-  return <TodoList filteredTodos={filteredTodos} actions={{}}/>;
+  return <TodoList 
+    filteredTodos={filteredTodos} 
+    actions={{
+      completeTodo,
+      deleteTodo,
+      editTodo
+    }}/>;
 }
