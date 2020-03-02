@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FilterLink from '../containers/FilterLink'
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
+import { VisiblityFilter, VisibilityFilters } from '../cache'
 
-const FILTER_TITLES = {
-  [SHOW_ALL]: 'All',
-  [SHOW_ACTIVE]: 'Active',
-  [SHOW_COMPLETED]: 'Completed'
+interface FooterProps {
+  activeVisibilityFilter: VisiblityFilter;
+  activeCount: number;
+  completedCount: number;
+  onClearCompleted: () => void;
+  setVisibilityFilter: (filter: VisiblityFilter) => void;
 }
 
-type FooterProps = any;
-
 const Footer = (props: FooterProps) => {
-  const { activeCount, completedCount, onClearCompleted } = props;
+  const { activeCount, completedCount, onClearCompleted, activeVisibilityFilter, setVisibilityFilter } = props;
   const itemWord = activeCount === 1 ? "item" : "items";
   return (
     <footer className="footer">
@@ -20,10 +20,12 @@ const Footer = (props: FooterProps) => {
         <strong>{activeCount || "No"}</strong> {itemWord} left
       </span>
       <ul className="filters">
-        {Object.keys(FILTER_TITLES).map(filter => (
-          <li key={filter}>
-            
-            {/* <FilterLink filter={filter}>{FILTER_TITLES[filter]}</FilterLink> */}
+        {Object.keys(VisibilityFilters).map((key) => VisibilityFilters[key]).map((filter) => (
+          <li key={filter.id}>
+            <FilterLink 
+              active={activeVisibilityFilter.id === filter.id} 
+              setFilter={() => setVisibilityFilter(filter)}>
+                {filter.displayName}</FilterLink>
           </li>
         ))}
       </ul>
@@ -40,6 +42,7 @@ Footer.propTypes = {
   completedCount: PropTypes.number.isRequired,
   activeCount: PropTypes.number.isRequired,
   onClearCompleted: PropTypes.func.isRequired,
+  setVisibilityFilter: PropTypes.func.isRequired
 }
 
 export default Footer

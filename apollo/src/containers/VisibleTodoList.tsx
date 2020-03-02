@@ -1,18 +1,18 @@
 
 import React from 'react'
-import { visibilityFilterVar, VisiblityFilter, Todos, todosVar } from '../cache'
+import { visibilityFilterVar, VisiblityFilter, Todos, todosVar, VisibilityFilters } from '../cache'
 import TodoList from '../components/TodoList';
 import { completeTodo } from '../operations/completeTodo';
 import { deleteTodo } from '../operations/deleteTodo';
 import { editTodo } from '../operations/editTodo';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
-  switch (visibilityFilter) {
-    case VisiblityFilter.SHOW_ALL:
+  switch (visibilityFilter.id) {
+    case VisibilityFilters.SHOW_ALL.id:
       return todos;
-    case VisiblityFilter.SHOW_COMPLETED:
+    case VisibilityFilters.SHOW_COMPLETED.id:
       return todos.filter(t => t.completed);
-    case VisiblityFilter.SHOW_ACTIVE:
+    case VisibilityFilters.SHOW_ACTIVE.id:
       return todos.filter(t => !t.completed);
     default:
       throw new Error("Unknown filter: " + visibilityFilter);

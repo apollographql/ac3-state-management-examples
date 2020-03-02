@@ -1,4 +1,4 @@
-import { InMemoryCache, Reference } from "@apollo/client";
+import { InMemoryCache } from "@apollo/client";
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
@@ -12,9 +12,14 @@ export const cache: InMemoryCache = new InMemoryCache({
             debugger;
           }
         },
-        visibilityFilter () {
-          return visibilityFilterVar();
-        },
+        visibilityFilter: {
+          read () {
+            return visibilityFilterVar();
+          },
+          merge (existing, incoming) {
+            debugger;
+          }
+        }
       }
     }
   }
@@ -28,11 +33,27 @@ export interface Todo {
 
 export type Todos = Todo[];
 
-export enum VisiblityFilter {
-  SHOW_ALL = "show_all",
-  SHOW_COMPLETED = "show_completed",
-  SHOW_ACTIVE = "show_active"
+export type VisiblityFilter = {
+  id: string;
+  displayName: string;
 }
+
+export const VisibilityFilters: { [filter: string]: VisiblityFilter } = {
+  SHOW_ALL: {
+    id: "show_all",
+    displayName: "All"
+  },
+  SHOW_COMPLETED: {
+    id: "show_completed",
+    displayName: "Completed"
+  },
+  SHOW_ACTIVE: {
+    id: "show_active",
+    displayName: "Active"
+  }
+}
+
+
 
 const todosInitialValue: Todos = [
   {
@@ -42,8 +63,10 @@ const todosInitialValue: Todos = [
   }
 ]
 
-export const todosVar = cache.makeVar<Todos>(todosInitialValue);
+export const todosVar = cache.makeVar<Todos>(
+  todosInitialValue
+);
 
 export const visibilityFilterVar = cache.makeVar<VisiblityFilter>(
-  VisiblityFilter.SHOW_ALL
+  VisibilityFilters.SHOW_ALL
 )

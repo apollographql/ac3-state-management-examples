@@ -2,7 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const Link = ({ active, children, setFilter }: any) =>
+interface LinkProps {
+  setFilter: () => any;
+  active: boolean;
+  children: any;
+}
+
+const Link = ({ active, children, setFilter }: LinkProps) =>
   (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <a
