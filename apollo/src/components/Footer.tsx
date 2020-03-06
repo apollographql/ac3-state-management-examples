@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FilterLink from '../containers/FilterLink'
-import { VisiblityFilter, VisibilityFilters } from '../cache'
+import { VisibilityFilters, VisiblityFilter } from '../models/VisibilityFilter';
 
 interface FooterProps {
   activeVisibilityFilter: VisiblityFilter;

@@ -1,5 +1,7 @@
+
 import { client } from ".."
-import { todosVar, Todo } from "../cache"
+import { todosVar } from "../cache"
+import { Todo } from "../models/Todos";
 
 export const editTodo = (id: number, text: string) => {
   let todosWithEditedTodo = todosVar()

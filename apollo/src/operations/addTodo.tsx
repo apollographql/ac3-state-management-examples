@@ -1,6 +1,7 @@
 
-import { todosVar, Todo, Todos } from "../cache";
+import { todosVar } from "../cache";
 import { client } from "..";
+import { Todos, Todo } from "../models/Todos";
 
 const createNewTodoId = (allTodos: Todos) => {
   return allTodos.reduce(

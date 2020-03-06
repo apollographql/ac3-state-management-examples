@@ -1,10 +1,12 @@
 
 import React from 'react'
-import { visibilityFilterVar, VisiblityFilter, Todos, todosVar, VisibilityFilters } from '../cache'
+import { visibilityFilterVar, todosVar } from '../cache'
 import TodoList from '../components/TodoList';
 import { completeTodo } from '../operations/completeTodo';
 import { deleteTodo } from '../operations/deleteTodo';
 import { editTodo } from '../operations/editTodo';
+import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
+import { Todos } from '../models/Todos';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter.id) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
-import { Todo } from '../cache'
+import { Todo } from '../models/Todos'
 
 const TodoList = ({ filteredTodos, actions }: any) => (
   <ul className="todo-list">

@@ -2,9 +2,9 @@ import React from 'react'
 import { createRenderer } from 'react-test-renderer/shallow';
 import Footer from './Footer'
 import FilterLink from '../containers/FilterLink'
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from '../constants/TodoFilters'
+import { VisibilityFilters } from '../models/VisibilityFilter';
 
-const setup = propOverrides => {
+const setup = (propOverrides?: any) => {
   const props = Object.assign({
     completedCount: 0,
     activeCount: 0,
@@ -21,11 +21,11 @@ const setup = propOverrides => {
   }
 }
 
-const getTextContent = elem => {
+const getTextContent = (elem: any) => {
   const children = Array.isArray(elem.props.children) ?
     elem.props.children : [ elem.props.children ]
 
-  return children.reduce((out, child) =>
+  return children.reduce((out: any, child: any) =>
     // Concatenate the text
     // Children are either elements or text strings
     out + (child.props ? getTextContent(child) : child)
@@ -53,16 +53,22 @@ describe('components', () => {
     })
 
     it('should render filters', () => {
-      const todoFilters = [SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED]
-      const filterTitles = ['All', 'Active', 'Completed']
+      const todoFilters = [
+        VisibilityFilters.SHOW_ALL, 
+        VisibilityFilters.SHOW_ACTIVE, 
+        VisibilityFilters.SHOW_COMPLETED
+      ]
       const { output } = setup()
       const [ , filters ] = output.props.children
       expect(filters.type).toBe('ul')
       expect(filters.props.className).toBe('filters')
       expect(filters.props.children.length).toBe(3)
-      filters.props.children.forEach(function checkFilter(filter, i) {
+      filters.props.children.forEach(function checkFilter(filter: any, i: number) {
         expect(filter.type).toBe('li')
         const a = filter.props.children
+
+        console.log(a)
+
         expect(a.type).toBe(FilterLink)
         expect(a.props.filter).toBe(todoFilters[i])        
         expect(a.props.children).toBe(filterTitles[i])        

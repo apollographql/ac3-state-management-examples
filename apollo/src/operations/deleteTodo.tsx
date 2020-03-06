@@ -1,5 +1,6 @@
-import { todosVar, Todo } from "../cache"
+import { todosVar } from "../cache"
 import { client } from "..";
+import { Todo } from "../models/Todos";
 
 export const deleteTodo = (id: number) => {
   const allTodos = todosVar();

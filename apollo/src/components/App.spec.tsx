@@ -4,7 +4,7 @@ import App from './App'
 import Header from '../containers/Header'
 import MainSection from '../containers/MainSection'
 
-const setup = _propOverrides => {
+const setup = (_propOverrides?: any) => {
   const renderer = createRenderer()
   renderer.render(<App />)
   const output = renderer.getRenderOutput()

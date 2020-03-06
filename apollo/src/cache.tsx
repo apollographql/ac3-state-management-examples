@@ -1,14 +1,17 @@
+
 import { InMemoryCache } from "@apollo/client";
+import { VisibilityFilters, VisiblityFilter } from "./models/VisibilityFilter";
+import { Todos } from "./models/Todos";
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
         todos: {
-          read () {
+          read (existing, { args, variables }) {
             return todosVar();
           },
-          merge (existing, incoming) {
+          merge (existing, { args, variables }) {
             debugger;
           }
         },
@@ -25,35 +28,9 @@ export const cache: InMemoryCache = new InMemoryCache({
   }
 });
 
-export interface Todo {
-  text: string;
-  completed: boolean;
-  id: number
-}
-
-export type Todos = Todo[];
-
-export type VisiblityFilter = {
-  id: string;
-  displayName: string;
-}
-
-export const VisibilityFilters: { [filter: string]: VisiblityFilter } = {
-  SHOW_ALL: {
-    id: "show_all",
-    displayName: "All"
-  },
-  SHOW_COMPLETED: {
-    id: "show_completed",
-    displayName: "Completed"
-  },
-  SHOW_ACTIVE: {
-    id: "show_active",
-    displayName: "Active"
-  }
-}
-
-
+/**
+ * Set initial values when we create cache variables.
+ */
 
 const todosInitialValue: Todos = [
   {
