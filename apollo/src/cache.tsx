@@ -11,17 +11,13 @@ export const cache: InMemoryCache = new InMemoryCache({
           read (existing, { args, variables }) {
             return todosVar();
           },
-          merge (existing, { args, variables }) {
-            debugger;
-          }
+          merge (existing, { args, variables }) {}
         },
         visibilityFilter: {
           read () {
             return visibilityFilterVar();
           },
-          merge (existing, incoming) {
-            debugger;
-          }
+          merge (existing, incoming) {}
         }
       }
     }
