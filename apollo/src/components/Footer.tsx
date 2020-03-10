@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FilterLink from '../containers/FilterLink'
+import Link from './Link'
 import { VisibilityFilters, VisiblityFilter } from '../models/VisibilityFilter';
 
 interface FooterProps {
@@ -22,10 +22,10 @@ const Footer = (props: FooterProps) => {
       <ul className="filters">
         {Object.keys(VisibilityFilters).map((key) => VisibilityFilters[key]).map((filter) => (
           <li key={filter.id}>
-            <FilterLink 
+            <Link 
               active={activeVisibilityFilter.id === filter.id} 
               setFilter={() => setVisibilityFilter(filter)}>
-                {filter.displayName}</FilterLink>
+                {filter.displayName}</Link>
           </li>
         ))}
       </ul>

@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { visibilityFilterVar, todosVar } from '../cache'
 import TodoList from '../components/TodoList';
 import { completeTodo } from '../operations/completeTodo';
 import { deleteTodo } from '../operations/deleteTodo';
@@ -22,8 +21,7 @@ function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos
 }
 
 export default function VisibleTodoList () {
-  const todos = todosVar();
-  const filteredTodos = filterTodosByVisibility(visibilityFilterVar(), todos);
+  const filteredTodos: Todos = [];
 
   return <TodoList 
     filteredTodos={filteredTodos} 

@@ -11,17 +11,13 @@ export const cache: InMemoryCache = new InMemoryCache({
           read (existing, { args, variables }) {
             return todosVar();
           },
-          merge (existing, { args, variables }) {
-            debugger;
-          }
+          merge (existing, { args, variables }) {}
         },
         visibilityFilter: {
           read () {
             return visibilityFilterVar();
           },
-          merge (existing, incoming) {
-            debugger;
-          }
+          merge (existing, incoming) {}
         }
       }
     }
@@ -29,21 +25,12 @@ export const cache: InMemoryCache = new InMemoryCache({
 });
 
 /**
- * Set initial values when we create cache variables.
+ * TODO: Write initial values
  */
 
-const todosInitialValue: Todos = [
-  {
-    id: 0,
-    completed: false,
-    text: "Use Apollo Client 3"
-  }
-]
 
-export const todosVar = cache.makeVar<Todos>(
-  todosInitialValue
-);
+// TODO: Create local cache variables
 
-export const visibilityFilterVar = cache.makeVar<VisiblityFilter>(
-  VisibilityFilters.SHOW_ALL
-)
+export const todosVar = () => {};
+
+export const visibilityFilterVar = () => {};

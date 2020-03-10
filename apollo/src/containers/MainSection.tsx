@@ -5,7 +5,7 @@ import { gql, useQuery } from '@apollo/client'
 import { completeAllTodos } from '../operations/completeAllTodos'
 import { setVisibilityFilter } from '../operations/setVisibilityFilter'
 import { clearCompletedTodos } from '../operations/clearCompletedTodos'
-import { VisiblityFilter } from '../models/VisibilityFilter'
+import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter'
 import { Todos } from '../models/Todos'
 
 /** 
@@ -21,30 +21,17 @@ import { Todos } from '../models/Todos'
  * arguments in the read function on the type policy.
  */
 
-export const GET_ALL_TODOS = gql`
-  query GetAllTodos {
-    todos {
-      id @client 
-      text @client 
-      completed @client
-    }
-  }
-`
+// TODO: Write GET_ALL_TODOS
 
-export const GET_VISIBILITY_FILTER = gql`
-  query GetVisibilityFilter {
-    visibilityFilter {
-      id @client
-      displayName @client
-    }
-  }
-`
+// TODO: Write GET_VISIBILITY_FILTER
 
 export default function Main () {
-  const todosQueryResult = useQuery(GET_ALL_TODOS, { variables: { name: 'hi' } });
-  const visibilityFilterQueryResult = useQuery(GET_VISIBILITY_FILTER);
-  const todos: Todos = todosQueryResult.data.todos;
-  const visibilityFilter: VisiblityFilter = visibilityFilterQueryResult.data.visibilityFilter;
+
+  // TODO: Get all todos using query
+  const todos: Todos = [];
+
+  // TODO: Get current visibility filter using query
+  const visibilityFilter: VisiblityFilter = VisibilityFilters.SHOW_ALL;
 
   return (
     <MainSection
