@@ -4,7 +4,7 @@
 
 <h2 align="center">Apollo Client 3 vs Redux</h2>
 
-<p align="center">Learn local state managment using Apollo Client 3 coming from Redux</p>
+<p align="center">Learn local state management using Apollo Client 3 coming from Redux</p>
 
 ## About
 
