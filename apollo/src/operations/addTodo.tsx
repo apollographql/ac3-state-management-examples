@@ -1,6 +1,5 @@
 
 import { todosVar } from "../cache";
-import { client } from "..";
 import { Todos, Todo } from "../models/Todos";
 
 const createNewTodoId = (allTodos: Todos) => {
@@ -18,7 +17,4 @@ export const addTodo = (text: string) => {
   const allTodos = todosVar();
   
   todosVar(allTodos.concat([createNewTodo(text, allTodos)]));
-
-  // TODO: Remove this
-  (client as any).queryManager.broadcastQueries();
 };

@@ -1,5 +1,4 @@
 import { todosVar } from "../cache"
-import { client } from "..";
 
 export const clearCompletedTodos = () => {
 
@@ -7,6 +6,4 @@ export const clearCompletedTodos = () => {
   
   todosVar(nonCompletedTodos);
 
-  // TODO: Remove this
-  (client as any).queryManager.broadcastQueries();
 }

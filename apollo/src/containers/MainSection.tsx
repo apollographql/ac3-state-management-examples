@@ -23,25 +23,27 @@ import { Todos } from '../models/Todos'
 
 export const GET_ALL_TODOS = gql`
   query GetAllTodos {
-    todos {
-      id @client 
-      text @client 
-      completed @client
+    todos @client { 
+      id  
+      text  
+      completed
     }
   }
 `
 
 export const GET_VISIBILITY_FILTER = gql`
   query GetVisibilityFilter {
-    visibilityFilter {
-      id @client
-      displayName @client
+    visibilityFilter @client {
+      id 
+      displayName
     }
   }
 `
 
 export default function Main () {
-  const todosQueryResult = useQuery(GET_ALL_TODOS, { variables: { name: 'hi' } });
+  const todosQueryResult = useQuery(
+    GET_ALL_TODOS, { variables: { name: 'hi' } }
+  );
   const visibilityFilterQueryResult = useQuery(GET_VISIBILITY_FILTER);
   const todos: Todos = todosQueryResult.data.todos;
   const visibilityFilter: VisiblityFilter = visibilityFilterQueryResult.data.visibilityFilter;
