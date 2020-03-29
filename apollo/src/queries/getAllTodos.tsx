@@ -3,10 +3,14 @@ import { gql } from "@apollo/client";
 
 export const GET_ALL_TODOS = gql`
   query GetAllTodos {
-    todos @client { 
-      id  
-      text  
-      completed
+    todos {
+      edges {
+        node {
+          id
+          text
+          completed
+        }
+      }
     }
   }
 `

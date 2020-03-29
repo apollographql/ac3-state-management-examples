@@ -1,8 +1,5 @@
+import { GetAllTodos_todos_edges_node } from "../queries/__generated__/GetAllTodos";
 
-export interface Todo {
-  text: string;
-  completed: boolean;
-  id: number
-}
+export type Todo = GetAllTodos_todos_edges_node;
 
 export type Todos = Todo[];

@@ -5,17 +5,14 @@ import {
 } from "./generated/graphql";
 import { PaginationUtils } from "./shared/utils/paginationUtils";
 import { TodoMapper } from "./shared/mappers/todoMapper";
-
-const todos: Todo[] = [
-  { id: 1, text: "Getting started", completed: false },
-  { id: 2, text: "Second todo", completed: false },
-  { id: 3, text: "Third todo", completed: false },
-];
+import { Context } from './index'
 
 const resolvers: Resolvers = {
   Query: {
-    todos: (_, { after, before, first, last }): TodosConnection => {
-      
+    todos: async (_, { after, before, first, last }, context: Context): Promise<TodosConnection> => {
+      const { todosRepo } = context;
+      const todos = await todosRepo.getAllTodos();
+
       let queryTodos: Todo[] = [];
       const limitResult = PaginationUtils
         .limitByFirstAndLast(todos, first, last);

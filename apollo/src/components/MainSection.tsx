@@ -21,7 +21,7 @@ const MainSection = ({
   activeVisibilityFilter,
   todosCount,
   completedCount,
-  actions
+  actions,
 }: MainSectionProps) => (
   <section className="main">
     {!!todosCount && (
