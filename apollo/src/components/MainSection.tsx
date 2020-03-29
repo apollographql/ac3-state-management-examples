@@ -41,7 +41,7 @@ const MainSection = ({
         activeVisibilityFilter={activeVisibilityFilter}
         completedCount={completedCount}
         activeCount={todosCount - completedCount}
-        onClearCompleted={actions.clearCompleted}
+        onClearCompleted={actions.clearCompletedTodos}
         setVisibilityFilter={actions.setVisibilityFilter}
       />
     )}

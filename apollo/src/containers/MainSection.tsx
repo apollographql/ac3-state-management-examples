@@ -1,12 +1,12 @@
 
 import React from 'react'
 import MainSection from '../components/MainSection'
-import { gql, useQuery } from '@apollo/client'
-import { completeAllTodos } from '../operations/completeAllTodos'
-import { setVisibilityFilter } from '../operations/setVisibilityFilter'
-import { clearCompletedTodos } from '../operations/clearCompletedTodos'
+import { useQuery } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
 import { Todos } from '../models/Todos'
+import { useTodos } from '../hooks'
+import { GET_ALL_TODOS } from '../queries/getAllTodos'
+import { GET_VISIBILITY_FILTER } from '../queries/getVisibilityFilter'
 
 /** 
  * We **could** use the todosVar and the
@@ -21,30 +21,14 @@ import { Todos } from '../models/Todos'
  * arguments in the read function on the type policy.
  */
 
-export const GET_ALL_TODOS = gql`
-  query GetAllTodos {
-    todos {
-      id @client 
-      text @client 
-      completed @client
-    }
-  }
-`
 
-export const GET_VISIBILITY_FILTER = gql`
-  query GetVisibilityFilter {
-    visibilityFilter {
-      id @client
-      displayName @client
-    }
-  }
-`
 
 export default function Main () {
-  const todosQueryResult = useQuery(GET_ALL_TODOS, { variables: { name: 'hi' } });
+  const todosQueryResult = useQuery(GET_ALL_TODOS);
   const visibilityFilterQueryResult = useQuery(GET_VISIBILITY_FILTER);
   const todos: Todos = todosQueryResult.data.todos;
   const visibilityFilter: VisiblityFilter = visibilityFilterQueryResult.data.visibilityFilter;
+  const { completeAllTodos, setVisibilityFilter, clearCompletedTodos } = useTodos();
 
   return (
     <MainSection
@@ -54,7 +38,7 @@ export default function Main () {
       actions={{
         completeAllTodos,
         setVisibilityFilter,
-        clearCompleted: clearCompletedTodos
+        clearCompletedTodos
       }}
     />
   );

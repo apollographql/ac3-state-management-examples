@@ -10,8 +10,7 @@ export const cache: InMemoryCache = new InMemoryCache({
         todos: {
           read (existing, { args, variables }) {
             return todosVar();
-          },
-          merge (existing, { args, variables }) {}
+          }
         },
         visibilityFilter: {
           read () {
