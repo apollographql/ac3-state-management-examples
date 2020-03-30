@@ -4,7 +4,11 @@
 
 ## About
 
-[Redux](https://redux.js.org/) is a state management library that is commonly used with React. This project contains the same app built with Redux and [Apollo Client 3](https://www.apollographql.com/docs/react/v3.0-beta/migrating/apollo-client-3-migration/). You can use this to compare how to accomplish the same thing using Apollo Client 3 with less code than Redux.
+[Apollo Client 3](https://www.apollographql.com/docs/react/v3.0-beta/migrating/apollo-client-3-migration/) is a state management library that enables you to work with remote GraphQL data. Apollo Client handles all of the data fetching logic for you- all you have to do is write the queries and mutations, and you're good to go.
+
+However, for a tool with a lot of capabilities, it can be challenging for developers moving from another state management library (like [Redux](https://redux.js.org/)) to fully grasp the AC3-way of doing things.
+
+This repo contains several versions of the same Todo app, in order to demonstrate best practices on using Apollo Client to build applications using solely **local state** in addition to a more real-world **remote state** use case.
 
 ![](https://user-images.githubusercontent.com/6892666/76266873-4cd96a00-623f-11ea-8367-e0735d63a54f.png)
 
