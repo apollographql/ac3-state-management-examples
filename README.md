@@ -16,15 +16,19 @@ This repo contains several versions of the same Todo app, both Apollo Client and
 
 ### Apollo Local State Example
 
-Using Apollo Client 3's **Reactive Variables API** (docs/blog post coming soon), we can store the entire application state locally (and optionally persist it local storage).
+> Summary: Using Apollo Client 3's **Reactive Variables API** (docs/blog post coming soon), we can store the entire application state locally (and optionally persist it local storage).
 
 [Check out the local state example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-local-state).
 
 ### Apollo Remote State Example
 
+> Summary: Hooking Apollo Client up to a remote GraphQL API, the client-side cache is smart enough to automatically update the cache after _most_ mutations successfully complete. For mutations that perform interactions against arrays or have additional client-side side-effects, we can help the cache decide what to do next by writing our update logic in the `useMutation`'s `update` function.
+
 [Check out the remote state example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state)
 
 ### Redux Local State Example
+
+> Summary: The Redux architecture provides us with a well-defined mental model for how to update state in an immutable way. We've provided this example in order to compare how to accomplish the same tasks in AC3 and in Redux.
 
 [Check out the local state (with Redux) example](https://github.com/apollographql/ac3-state-management-examples/tree/master/redux-local-state)
  
