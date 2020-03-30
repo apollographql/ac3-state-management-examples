@@ -8,6 +8,7 @@ import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'
 import { GET_VISIBILITY_FILTER } from '../operations/queries/getVisibilityFilter'
 import { GetAllTodos } from '../operations/__generated__/GetAllTodos'
 import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTodos'
+import { useCompleteAllTodos } from '../operations/mutations/completeAllTodos'
 
 export default function Main () {
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
@@ -15,6 +16,7 @@ export default function Main () {
   const { setVisibilityFilter } = useTodos();
   
   const { mutate: clearCompletedTodos } = useClearCompletedTodos();
+  const { mutate: completeAllTodos } = useCompleteAllTodos();
 
   if (isTodosLoading) return <div>Loading...</div>
   if (todosError) return <div>An error occurred {JSON.stringify(todosError)}</div>
@@ -27,7 +29,7 @@ export default function Main () {
       todosCount={todosConnection.todos.edges.length}
       completedCount={todos.filter(t => t ? t.completed : false).length}
       actions={{
-        completeAllTodos: () => {},
+        completeAllTodos,
         setVisibilityFilter,
         clearCompletedTodos,
       }}

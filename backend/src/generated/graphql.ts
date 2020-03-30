@@ -24,6 +24,18 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export type ClearCompletedTodosResult = {
+   __typename?: 'ClearCompletedTodosResult';
+  success: Scalars['Boolean'];
+  todos: Array<Maybe<Todo>>;
+};
+
+export type CompleteAllTodosResult = {
+   __typename?: 'CompleteAllTodosResult';
+  success: Scalars['Boolean'];
+  todos: Array<Maybe<Todo>>;
+};
+
 export type CompleteTodoError = TodoNotFoundError | TodoAlreadyCompletedError;
 
 export type CompleteTodoResult = {
@@ -36,7 +48,9 @@ export type CompleteTodoResult = {
 export type Mutation = {
    __typename?: 'Mutation';
   addTodo: AddTodoResult;
+  clearCompletedTodos: ClearCompletedTodosResult;
   completeTodo: CompleteTodoResult;
+  completeAllTodos: CompleteAllTodosResult;
 };
 
 
@@ -199,9 +213,11 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>,
   AddTodoResult: ResolverTypeWrapper<AddTodoResult>,
   TodoValidationError: ResolverTypeWrapper<TodoValidationError>,
+  ClearCompletedTodosResult: ResolverTypeWrapper<ClearCompletedTodosResult>,
   CompleteTodoResult: ResolverTypeWrapper<Omit<CompleteTodoResult, 'error'> & { error?: Maybe<ResolversTypes['CompleteTodoError']> }>,
   CompleteTodoError: ResolversTypes['TodoNotFoundError'] | ResolversTypes['TodoAlreadyCompletedError'],
   TodoAlreadyCompletedError: ResolverTypeWrapper<TodoAlreadyCompletedError>,
+  CompleteAllTodosResult: ResolverTypeWrapper<CompleteAllTodosResult>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
 };
@@ -221,9 +237,11 @@ export type ResolversParentTypes = {
   Mutation: {},
   AddTodoResult: AddTodoResult,
   TodoValidationError: TodoValidationError,
+  ClearCompletedTodosResult: ClearCompletedTodosResult,
   CompleteTodoResult: Omit<CompleteTodoResult, 'error'> & { error?: Maybe<ResolversParentTypes['CompleteTodoError']> },
   CompleteTodoError: ResolversParentTypes['TodoNotFoundError'] | ResolversParentTypes['TodoAlreadyCompletedError'],
   TodoAlreadyCompletedError: TodoAlreadyCompletedError,
+  CompleteAllTodosResult: CompleteAllTodosResult,
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
 };
@@ -232,6 +250,18 @@ export type AddTodoResultResolvers<ContextType = any, ParentType extends Resolve
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   todo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType>,
   error?: Resolver<Maybe<ResolversTypes['TodoValidationError']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ClearCompletedTodosResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['ClearCompletedTodosResult'] = ResolversParentTypes['ClearCompletedTodosResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  todos?: Resolver<Array<Maybe<ResolversTypes['Todo']>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CompleteAllTodosResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CompleteAllTodosResult'] = ResolversParentTypes['CompleteAllTodosResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  todos?: Resolver<Array<Maybe<ResolversTypes['Todo']>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -248,7 +278,9 @@ export type CompleteTodoResultResolvers<ContextType = any, ParentType extends Re
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addTodo?: Resolver<ResolversTypes['AddTodoResult'], ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'text'>>,
+  clearCompletedTodos?: Resolver<ResolversTypes['ClearCompletedTodosResult'], ParentType, ContextType>,
   completeTodo?: Resolver<ResolversTypes['CompleteTodoResult'], ParentType, ContextType, RequireFields<MutationCompleteTodoArgs, 'id'>>,
+  completeAllTodos?: Resolver<ResolversTypes['CompleteAllTodosResult'], ParentType, ContextType>,
 };
 
 export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
@@ -308,6 +340,8 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 
 export type Resolvers<ContextType = any> = {
   AddTodoResult?: AddTodoResultResolvers<ContextType>,
+  ClearCompletedTodosResult?: ClearCompletedTodosResultResolvers<ContextType>,
+  CompleteAllTodosResult?: CompleteAllTodosResultResolvers<ContextType>,
   CompleteTodoError?: CompleteTodoErrorResolvers,
   CompleteTodoResult?: CompleteTodoResultResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,

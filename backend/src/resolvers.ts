@@ -4,7 +4,9 @@ import {
   TodosConnection,
   TodoResult,
   AddTodoResult,
-  CompleteTodoResult
+  CompleteTodoResult,
+  ClearCompletedTodosResult,
+  CompleteAllTodosResult
 } from "./generated/graphql";
 import { PaginationUtils } from "./shared/utils/paginationUtils";
 import { TodoMapper } from "./shared/mappers/todoMapper";
@@ -40,6 +42,18 @@ const resolvers: Resolvers = {
       todo = await todosRepo.getTodoById(id)
 
       return { success: true, todo }
+    },
+    clearCompletedTodos: async (_, __, context: Context): Promise<ClearCompletedTodosResult> => {
+      const { todosRepo } = context;
+      await todosRepo.clearCompletedTodos();
+      const todos = await todosRepo.getAllTodos();
+      return { success: true, todos }
+    },
+    completeAllTodos: async (_, __, context: Context): Promise<CompleteAllTodosResult> => {
+      const { todosRepo } = context;
+      await todosRepo.completeAllTodos();
+      const todos = await todosRepo.getAllTodos();
+      return { success: true, todos }
     }
   },
   Query: {

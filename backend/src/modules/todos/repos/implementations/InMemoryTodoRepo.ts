@@ -57,4 +57,8 @@ export class InMemoryTodoRepo implements TodoRepo {
   public async getLastTodo (): Promise<Todo> {
     return this.todos[this.todos.length - 1]
   }
+
+  public async completeAllTodos (): Promise<void> {
+    this.todos = this.todos.map((t) => ({ ...t, completed: true }))
+  }
 }

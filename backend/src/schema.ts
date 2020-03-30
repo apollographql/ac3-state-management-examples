@@ -63,15 +63,21 @@ const typeDefs = gql`
     error: TodoValidationError
   }
 
-  # type ClearCompletedTodosResult {
-  #   success: Boolean!
-  #   todos: [Todo]!
-  # }
+  type ClearCompletedTodosResult {
+    success: Boolean!
+    todos: [Todo]!
+  }
+
+  type CompleteAllTodosResult {
+    success: Boolean!
+    todos: [Todo]!
+  }
 
   type Mutation {
     addTodo (text: String!): AddTodoResult!
-    # clearCompletedTodos (): ClearCompletedTodosResult!
+    clearCompletedTodos: ClearCompletedTodosResult!
     completeTodo (id: Int!): CompleteTodoResult!
+    completeAllTodos: CompleteAllTodosResult!
   }
 `
 
