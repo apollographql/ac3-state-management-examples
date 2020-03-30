@@ -26,4 +26,4 @@ cd server
 npm install && npm run start
 ```
 
-The app should start at http://localhost:4000/.
+The server should start at http://localhost:4000/.
