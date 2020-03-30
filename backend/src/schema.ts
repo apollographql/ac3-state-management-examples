@@ -24,6 +24,12 @@ const typeDefs = gql`
     pageInfo: PageInfo!
   }
 
+  type TodoNotFoundError {
+    message: String!
+  }
+
+  union TodoResult = Todo | TodoNotFoundError
+
   type Query {
     todos (
       after: String, 
@@ -31,6 +37,41 @@ const typeDefs = gql`
       first: Int, 
       last: Int
     ): TodosConnection!
+
+    todo (id: Int!): TodoResult!
+  }
+
+  type TodoAlreadyCompletedError {
+    message: String!
+  }
+
+  union CompleteTodoError = TodoNotFoundError | TodoAlreadyCompletedError
+
+  type CompleteTodoResult {
+    success: Boolean!
+    todo: Todo
+    error: CompleteTodoError
+  }
+
+  type TodoValidationError {
+    message: String!
+  }
+
+  type AddTodoResult {
+    success: Boolean!
+    todo: Todo
+    error: TodoValidationError
+  }
+
+  # type ClearCompletedTodosResult {
+  #   success: Boolean!
+  #   todos: [Todo]!
+  # }
+
+  type Mutation {
+    addTodo (text: String!): AddTodoResult!
+    # clearCompletedTodos (): ClearCompletedTodosResult!
+    completeTodo (id: Int!): CompleteTodoResult!
   }
 `
 

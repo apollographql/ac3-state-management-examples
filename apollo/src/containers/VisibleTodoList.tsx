@@ -4,10 +4,10 @@ import { visibilityFilterVar } from '../cache'
 import TodoList from '../components/TodoList';
 import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
 import { Todos } from '../models/Todos';
-import { useTodos } from '../hooks';
 import { useQuery } from '@apollo/client';
-import { GetAllTodos, GetAllTodos_todos_edges_node } from '../queries/__generated__/GetAllTodos';
-import { GET_ALL_TODOS } from '../queries/getAllTodos';
+import { GetAllTodos } from '../operations/__generated__/GetAllTodos';
+import { GET_ALL_TODOS } from '../operations/queries/getAllTodos';
+import { useCompleteTodo } from '../operations/mutations/completeTodo';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter.id) {
@@ -24,6 +24,7 @@ function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos
 
 export default function VisibleTodoList () {
   // const { completeTodo, deleteTodo, editTodo } = useTodos();
+  const { mutate: completeTodo } = useCompleteTodo();
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
 
   if (isTodosLoading) return <div>Loading...</div>
@@ -31,13 +32,12 @@ export default function VisibleTodoList () {
   if (!todosConnection) return <div>None</div>;
 
   const todos: Todos = todosConnection.todos.edges.map((t) => t?.node) as Todos;
-
   const filteredTodos = filterTodosByVisibility(visibilityFilterVar(), todos);
 
   return <TodoList 
     filteredTodos={filteredTodos} 
     actions={{
-      completeTodo: () => {},
+      completeTodo: (id: number) => completeTodo({ variables: { id }}),
       deleteTodo: () => {},
       editTodo: () => {},
     }}/>;

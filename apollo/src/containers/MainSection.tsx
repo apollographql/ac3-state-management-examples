@@ -4,19 +4,21 @@ import MainSection from '../components/MainSection'
 import { useQuery } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
 import { useTodos } from '../hooks'
-import { GET_ALL_TODOS } from '../queries/getAllTodos'
-import { GET_VISIBILITY_FILTER } from '../queries/getVisibilityFilter'
-import { GetAllTodos } from '../queries/__generated__/GetAllTodos'
+import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'
+import { GET_VISIBILITY_FILTER } from '../operations/queries/getVisibilityFilter'
+import { GetAllTodos } from '../operations/__generated__/GetAllTodos'
+import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTodos'
 
 export default function Main () {
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
   const { data: visibilityFilter } = useQuery<VisiblityFilter>(GET_VISIBILITY_FILTER);
   const { setVisibilityFilter } = useTodos();
+  
+  const { mutate: clearCompletedTodos } = useClearCompletedTodos();
 
   if (isTodosLoading) return <div>Loading...</div>
   if (todosError) return <div>An error occurred {JSON.stringify(todosError)}</div>
   if (!todosConnection) return <div>None</div>;
-
   const todos = todosConnection.todos.edges.map((t) => t?.node)
   
   return (
@@ -27,7 +29,7 @@ export default function Main () {
       actions={{
         completeAllTodos: () => {},
         setVisibilityFilter,
-        clearCompletedTodos: () => {},
+        clearCompletedTodos,
       }}
     />
   );

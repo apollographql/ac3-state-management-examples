@@ -10,8 +10,7 @@ export const cache: InMemoryCache = new InMemoryCache({
         visibilityFilter: {
           read () {
             return visibilityFilterVar();
-          },
-          merge (existing, incoming) {}
+          }
         }
       }
     }
@@ -21,7 +20,6 @@ export const cache: InMemoryCache = new InMemoryCache({
 /**
  * Set initial values when we create cache variables.
  */
-
 
 export const todosVar = cache.makeVar<Todos>(
   

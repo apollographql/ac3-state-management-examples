@@ -9,4 +9,5 @@ export interface TodoRepo {
   editTodo(id: number, text: string): Promise<void>;
   getAllTodos (): Promise<Todo[]>;
   getTodoById (id: number): Promise<Todo>;
+  getLastTodo (): Promise<Todo>;
 }

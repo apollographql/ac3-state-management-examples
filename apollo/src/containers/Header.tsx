@@ -1,9 +1,9 @@
 
 import React from 'react';
 import Header from '../components/Header'
-import { useTodos } from '../hooks';
+import { useAddTodo } from '../operations/mutations/addTodo';
 
 export default function () {
-  // const { addTodo } = useTodos();
-  return <Header addTodo={() => {}} />;
+  const { mutate, data, error } = useAddTodo();
+  return <Header addTodo={(text) => mutate({ variables: { text } })} />;
 }

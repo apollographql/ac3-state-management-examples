@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -11,10 +12,42 @@ export type Scalars = {
   Upload: any;
 };
 
+export type AddTodoResult = {
+   __typename?: 'AddTodoResult';
+  success: Scalars['Boolean'];
+  todo?: Maybe<Todo>;
+  error?: Maybe<TodoValidationError>;
+};
+
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE'
 }
+
+export type CompleteTodoError = TodoNotFoundError | TodoAlreadyCompletedError;
+
+export type CompleteTodoResult = {
+   __typename?: 'CompleteTodoResult';
+  success: Scalars['Boolean'];
+  todo?: Maybe<Todo>;
+  error?: Maybe<CompleteTodoError>;
+};
+
+export type Mutation = {
+   __typename?: 'Mutation';
+  addTodo: AddTodoResult;
+  completeTodo: CompleteTodoResult;
+};
+
+
+export type MutationAddTodoArgs = {
+  text: Scalars['String'];
+};
+
+
+export type MutationCompleteTodoArgs = {
+  id: Scalars['Int'];
+};
 
 export type PageInfo = {
    __typename?: 'PageInfo';
@@ -27,6 +60,7 @@ export type PageInfo = {
 export type Query = {
    __typename?: 'Query';
   todos: TodosConnection;
+  todo: TodoResult;
 };
 
 
@@ -37,12 +71,29 @@ export type QueryTodosArgs = {
   last?: Maybe<Scalars['Int']>;
 };
 
+
+export type QueryTodoArgs = {
+  id: Scalars['Int'];
+};
+
 export type Todo = {
    __typename?: 'Todo';
   id: Scalars['Int'];
   text: Scalars['String'];
   completed: Scalars['Boolean'];
 };
+
+export type TodoAlreadyCompletedError = {
+   __typename?: 'TodoAlreadyCompletedError';
+  message: Scalars['String'];
+};
+
+export type TodoNotFoundError = {
+   __typename?: 'TodoNotFoundError';
+  message: Scalars['String'];
+};
+
+export type TodoResult = Todo | TodoNotFoundError;
 
 export type TodosConnection = {
    __typename?: 'TodosConnection';
@@ -54,6 +105,11 @@ export type TodosEdge = {
    __typename?: 'TodosEdge';
   node: Todo;
   cursor: Scalars['String'];
+};
+
+export type TodoValidationError = {
+   __typename?: 'TodoValidationError';
+  message: Scalars['String'];
 };
 
 
@@ -138,6 +194,14 @@ export type ResolversTypes = {
   Todo: ResolverTypeWrapper<Todo>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   PageInfo: ResolverTypeWrapper<PageInfo>,
+  TodoResult: ResolversTypes['Todo'] | ResolversTypes['TodoNotFoundError'],
+  TodoNotFoundError: ResolverTypeWrapper<TodoNotFoundError>,
+  Mutation: ResolverTypeWrapper<{}>,
+  AddTodoResult: ResolverTypeWrapper<AddTodoResult>,
+  TodoValidationError: ResolverTypeWrapper<TodoValidationError>,
+  CompleteTodoResult: ResolverTypeWrapper<Omit<CompleteTodoResult, 'error'> & { error?: Maybe<ResolversTypes['CompleteTodoError']> }>,
+  CompleteTodoError: ResolversTypes['TodoNotFoundError'] | ResolversTypes['TodoAlreadyCompletedError'],
+  TodoAlreadyCompletedError: ResolverTypeWrapper<TodoAlreadyCompletedError>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
 };
@@ -152,8 +216,39 @@ export type ResolversParentTypes = {
   Todo: Todo,
   Boolean: Scalars['Boolean'],
   PageInfo: PageInfo,
+  TodoResult: ResolversParentTypes['Todo'] | ResolversParentTypes['TodoNotFoundError'],
+  TodoNotFoundError: TodoNotFoundError,
+  Mutation: {},
+  AddTodoResult: AddTodoResult,
+  TodoValidationError: TodoValidationError,
+  CompleteTodoResult: Omit<CompleteTodoResult, 'error'> & { error?: Maybe<ResolversParentTypes['CompleteTodoError']> },
+  CompleteTodoError: ResolversParentTypes['TodoNotFoundError'] | ResolversParentTypes['TodoAlreadyCompletedError'],
+  TodoAlreadyCompletedError: TodoAlreadyCompletedError,
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
+};
+
+export type AddTodoResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddTodoResult'] = ResolversParentTypes['AddTodoResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  todo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['TodoValidationError']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CompleteTodoErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['CompleteTodoError'] = ResolversParentTypes['CompleteTodoError']> = {
+  __resolveType: TypeResolveFn<'TodoNotFoundError' | 'TodoAlreadyCompletedError', ParentType, ContextType>
+};
+
+export type CompleteTodoResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CompleteTodoResult'] = ResolversParentTypes['CompleteTodoResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  todo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['CompleteTodoError']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addTodo?: Resolver<ResolversTypes['AddTodoResult'], ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'text'>>,
+  completeTodo?: Resolver<ResolversTypes['CompleteTodoResult'], ParentType, ContextType, RequireFields<MutationCompleteTodoArgs, 'id'>>,
 };
 
 export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
@@ -166,6 +261,7 @@ export type PageInfoResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   todos?: Resolver<ResolversTypes['TodosConnection'], ParentType, ContextType, RequireFields<QueryTodosArgs, never>>,
+  todo?: Resolver<ResolversTypes['TodoResult'], ParentType, ContextType, RequireFields<QueryTodoArgs, 'id'>>,
 };
 
 export type TodoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
@@ -173,6 +269,20 @@ export type TodoResolvers<ContextType = any, ParentType extends ResolversParentT
   text?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type TodoAlreadyCompletedErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['TodoAlreadyCompletedError'] = ResolversParentTypes['TodoAlreadyCompletedError']> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type TodoNotFoundErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['TodoNotFoundError'] = ResolversParentTypes['TodoNotFoundError']> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type TodoResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TodoResult'] = ResolversParentTypes['TodoResult']> = {
+  __resolveType: TypeResolveFn<'Todo' | 'TodoNotFoundError', ParentType, ContextType>
 };
 
 export type TodosConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TodosConnection'] = ResolversParentTypes['TodosConnection']> = {
@@ -187,16 +297,29 @@ export type TodosEdgeResolvers<ContextType = any, ParentType extends ResolversPa
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type TodoValidationErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['TodoValidationError'] = ResolversParentTypes['TodoValidationError']> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
   name: 'Upload'
 }
 
 export type Resolvers<ContextType = any> = {
+  AddTodoResult?: AddTodoResultResolvers<ContextType>,
+  CompleteTodoError?: CompleteTodoErrorResolvers,
+  CompleteTodoResult?: CompleteTodoResultResolvers<ContextType>,
+  Mutation?: MutationResolvers<ContextType>,
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Todo?: TodoResolvers<ContextType>,
+  TodoAlreadyCompletedError?: TodoAlreadyCompletedErrorResolvers<ContextType>,
+  TodoNotFoundError?: TodoNotFoundErrorResolvers<ContextType>,
+  TodoResult?: TodoResultResolvers,
   TodosConnection?: TodosConnectionResolvers<ContextType>,
   TodosEdge?: TodosEdgeResolvers<ContextType>,
+  TodoValidationError?: TodoValidationErrorResolvers<ContextType>,
   Upload?: GraphQLScalarType,
 };
 

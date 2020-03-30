@@ -15,12 +15,14 @@ export class InMemoryTodoRepo implements TodoRepo {
   }
 
   public async addTodo (text: string): Promise<void> {
+    if (text.length < 3) throw new Error("Todo needs to be longer than 3 characters.")
     this.lastTodoId++;
     this.todos.push({ id: this.lastTodoId, text, completed: false })
+    console.log('New todo list', this.todos)
   }
 
   public async completeTodo (id: number): Promise<void> {
-    this.todos.map((t) => t.id === id ? { ...t, completed: true } : t)
+    this.todos = this.todos.map((t) => t.id === id ? { ...t, completed: true } : t)
   }
 
   public async clearCompletedTodos (): Promise<void> {
@@ -50,5 +52,9 @@ export class InMemoryTodoRepo implements TodoRepo {
       throw new Error("Todo not found")
     }
     return this.todos[found];
+  }
+
+  public async getLastTodo (): Promise<Todo> {
+    return this.todos[this.todos.length - 1]
   }
 }
