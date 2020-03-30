@@ -52,6 +52,15 @@ export type DeleteTodoResult = {
   error?: Maybe<TodoNotFoundError>;
 };
 
+export type EditTodoError = TodoNotFoundError | TodoValidationError;
+
+export type EditTodoResult = {
+   __typename?: 'EditTodoResult';
+  success: Scalars['Boolean'];
+  todo?: Maybe<Todo>;
+  error?: Maybe<EditTodoError>;
+};
+
 export type Mutation = {
    __typename?: 'Mutation';
   addTodo: AddTodoResult;
@@ -59,6 +68,7 @@ export type Mutation = {
   completeTodo: CompleteTodoResult;
   completeAllTodos: CompleteAllTodosResult;
   deleteTodo: DeleteTodoResult;
+  editTodo: EditTodoResult;
 };
 
 
@@ -74,6 +84,12 @@ export type MutationCompleteTodoArgs = {
 
 export type MutationDeleteTodoArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationEditTodoArgs = {
+  id: Scalars['Int'];
+  text: Scalars['String'];
 };
 
 export type PageInfo = {
@@ -232,6 +248,8 @@ export type ResolversTypes = {
   TodoAlreadyCompletedError: ResolverTypeWrapper<TodoAlreadyCompletedError>,
   CompleteAllTodosResult: ResolverTypeWrapper<CompleteAllTodosResult>,
   DeleteTodoResult: ResolverTypeWrapper<DeleteTodoResult>,
+  EditTodoResult: ResolverTypeWrapper<Omit<EditTodoResult, 'error'> & { error?: Maybe<ResolversTypes['EditTodoError']> }>,
+  EditTodoError: ResolversTypes['TodoNotFoundError'] | ResolversTypes['TodoValidationError'],
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
 };
@@ -257,6 +275,8 @@ export type ResolversParentTypes = {
   TodoAlreadyCompletedError: TodoAlreadyCompletedError,
   CompleteAllTodosResult: CompleteAllTodosResult,
   DeleteTodoResult: DeleteTodoResult,
+  EditTodoResult: Omit<EditTodoResult, 'error'> & { error?: Maybe<ResolversParentTypes['EditTodoError']> },
+  EditTodoError: ResolversParentTypes['TodoNotFoundError'] | ResolversParentTypes['TodoValidationError'],
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
 };
@@ -298,12 +318,24 @@ export type DeleteTodoResultResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type EditTodoErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['EditTodoError'] = ResolversParentTypes['EditTodoError']> = {
+  __resolveType: TypeResolveFn<'TodoNotFoundError' | 'TodoValidationError', ParentType, ContextType>
+};
+
+export type EditTodoResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['EditTodoResult'] = ResolversParentTypes['EditTodoResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  todo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['EditTodoError']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addTodo?: Resolver<ResolversTypes['AddTodoResult'], ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'text'>>,
   clearCompletedTodos?: Resolver<ResolversTypes['ClearCompletedTodosResult'], ParentType, ContextType>,
   completeTodo?: Resolver<ResolversTypes['CompleteTodoResult'], ParentType, ContextType, RequireFields<MutationCompleteTodoArgs, 'id'>>,
   completeAllTodos?: Resolver<ResolversTypes['CompleteAllTodosResult'], ParentType, ContextType>,
   deleteTodo?: Resolver<ResolversTypes['DeleteTodoResult'], ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'id'>>,
+  editTodo?: Resolver<ResolversTypes['EditTodoResult'], ParentType, ContextType, RequireFields<MutationEditTodoArgs, 'id' | 'text'>>,
 };
 
 export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
@@ -368,6 +400,8 @@ export type Resolvers<ContextType = any> = {
   CompleteTodoError?: CompleteTodoErrorResolvers,
   CompleteTodoResult?: CompleteTodoResultResolvers<ContextType>,
   DeleteTodoResult?: DeleteTodoResultResolvers<ContextType>,
+  EditTodoError?: EditTodoErrorResolvers,
+  EditTodoResult?: EditTodoResultResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,

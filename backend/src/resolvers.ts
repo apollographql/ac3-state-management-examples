@@ -7,7 +7,8 @@ import {
   CompleteTodoResult,
   ClearCompletedTodosResult,
   CompleteAllTodosResult,
-  DeleteTodoResult
+  DeleteTodoResult,
+  EditTodoResult
 } from "./generated/graphql";
 import { PaginationUtils } from "./shared/utils/paginationUtils";
 import { TodoMapper } from "./shared/mappers/todoMapper";
@@ -68,6 +69,25 @@ const resolvers: Resolvers = {
 
       await todosRepo.deleteTodo(id);
       return { success: true, todo };
+    },
+    editTodo: async (_, { id, text }, context: Context): Promise<EditTodoResult> => {
+      const { todosRepo } = context;
+      let todo; 
+
+      try {
+        todo = await todosRepo.getTodoById(id);
+      } catch (err) {
+        return { success: false, error: { message: 'Todo not found' } }
+      }
+
+      try {
+        await todosRepo.editTodo(id, text)
+      } catch (err) {
+        return { success: false, error: { message: 'Todo must be greater than 3 chars' } }
+      }
+
+      todo = await todosRepo.getTodoById(id);
+      return { success: true, todo }
     }
   },
   Query: {
@@ -100,6 +120,16 @@ const resolvers: Resolvers = {
       } 
     },
   },
+
+  /**
+   * This section below is mandatory for when we're using
+   * unions. In order to better switch/handle which error
+   * type we're using, we should enforce an error interface
+   * containing some unique type name or code. This will
+   * remove the need for us to switch based on the stringly-typed
+   * error message. Not ideal.
+   */
+
   TodoResult: {
     __resolveType (obj) {
 
@@ -124,6 +154,15 @@ const resolvers: Resolvers = {
       return 'TodoNotFoundError'
 
     },
+  },
+  EditTodoError: {
+    __resolveType (obj) {
+      if(obj.message === 'Todo must be greater than 3 chars'){
+        return 'TodoValidationError';
+      }
+
+      return 'TodoNotFoundError'
+    }
   }
 };
 

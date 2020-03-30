@@ -35,10 +35,12 @@ export class InMemoryTodoRepo implements TodoRepo {
   }
 
   public async editTodo(id: number, text: string): Promise<void> {
+    if (text.length < 3) throw new Error("Todo needs to be longer than 3 characters.")
     const found = this.todos.findIndex((t) => t.id === id);
     if (found === -1) {
       throw new Error("Todo not found for editing")
     }
+
     this.todos[found].text = text;
   }
 

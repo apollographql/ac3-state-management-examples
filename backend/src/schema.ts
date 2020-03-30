@@ -79,12 +79,21 @@ const typeDefs = gql`
     error: TodoNotFoundError
   }
 
+  union EditTodoError = TodoNotFoundError | TodoValidationError
+
+  type EditTodoResult {
+    success: Boolean!
+    todo: Todo 
+    error: EditTodoError
+  }
+
   type Mutation {
     addTodo (text: String!): AddTodoResult!
     clearCompletedTodos: ClearCompletedTodosResult!
     completeTodo (id: Int!): CompleteTodoResult!
     completeAllTodos: CompleteAllTodosResult!
     deleteTodo (id: Int!): DeleteTodoResult!
+    editTodo (id: Int!, text: String!): EditTodoResult!
   }
 `
 

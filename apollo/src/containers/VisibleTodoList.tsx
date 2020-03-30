@@ -9,6 +9,7 @@ import { GetAllTodos } from '../operations/__generated__/GetAllTodos';
 import { GET_ALL_TODOS } from '../operations/queries/getAllTodos';
 import { useCompleteTodo } from '../operations/mutations/completeTodo';
 import { useDeleteTodo } from '../operations/mutations/deleteTodo';
+import { useEditTodo } from '../operations/mutations/editTodo';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter.id) {
@@ -26,6 +27,8 @@ function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos
 export default function VisibleTodoList () {
   const { mutate: completeTodo } = useCompleteTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
+  const { mutate: editTodo } = useEditTodo();
+
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
 
   if (isTodosLoading) return <div>Loading...</div>
@@ -40,6 +43,6 @@ export default function VisibleTodoList () {
     actions={{
       completeTodo: (id: number) => completeTodo({ variables: { id }}),
       deleteTodo: (id: number) => deleteTodo({ variables: { id }}),
-      editTodo: () => {},
+      editTodo: (id: number, text: string) => editTodo({ variables: { id, text }}),
     }}/>;
 }
