@@ -1,10 +1,6 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/6892666/76242256-c441d600-620c-11ea-9986-c799dcde32e6.png">
-</p>
+<h2 align="center">Apollo Client 3 State Management Examples</h2>
 
-<h2 align="center">Apollo Client 3 vs Redux</h2>
-
-<p align="center">Learn local state management using Apollo Client 3 coming from Redux</p>
+<p align="center">Learn how to use AC3 for local and remote state management</p>
 
 ## About
 
