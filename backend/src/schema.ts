@@ -73,11 +73,18 @@ const typeDefs = gql`
     todos: [Todo]!
   }
 
+  type DeleteTodoResult {
+    success: Boolean!
+    todo: Todo
+    error: TodoNotFoundError
+  }
+
   type Mutation {
     addTodo (text: String!): AddTodoResult!
     clearCompletedTodos: ClearCompletedTodosResult!
     completeTodo (id: Int!): CompleteTodoResult!
     completeAllTodos: CompleteAllTodosResult!
+    deleteTodo (id: Int!): DeleteTodoResult!
   }
 `
 

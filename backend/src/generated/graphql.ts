@@ -45,12 +45,20 @@ export type CompleteTodoResult = {
   error?: Maybe<CompleteTodoError>;
 };
 
+export type DeleteTodoResult = {
+   __typename?: 'DeleteTodoResult';
+  success: Scalars['Boolean'];
+  todo?: Maybe<Todo>;
+  error?: Maybe<TodoNotFoundError>;
+};
+
 export type Mutation = {
    __typename?: 'Mutation';
   addTodo: AddTodoResult;
   clearCompletedTodos: ClearCompletedTodosResult;
   completeTodo: CompleteTodoResult;
   completeAllTodos: CompleteAllTodosResult;
+  deleteTodo: DeleteTodoResult;
 };
 
 
@@ -60,6 +68,11 @@ export type MutationAddTodoArgs = {
 
 
 export type MutationCompleteTodoArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteTodoArgs = {
   id: Scalars['Int'];
 };
 
@@ -218,6 +231,7 @@ export type ResolversTypes = {
   CompleteTodoError: ResolversTypes['TodoNotFoundError'] | ResolversTypes['TodoAlreadyCompletedError'],
   TodoAlreadyCompletedError: ResolverTypeWrapper<TodoAlreadyCompletedError>,
   CompleteAllTodosResult: ResolverTypeWrapper<CompleteAllTodosResult>,
+  DeleteTodoResult: ResolverTypeWrapper<DeleteTodoResult>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
 };
@@ -242,6 +256,7 @@ export type ResolversParentTypes = {
   CompleteTodoError: ResolversParentTypes['TodoNotFoundError'] | ResolversParentTypes['TodoAlreadyCompletedError'],
   TodoAlreadyCompletedError: TodoAlreadyCompletedError,
   CompleteAllTodosResult: CompleteAllTodosResult,
+  DeleteTodoResult: DeleteTodoResult,
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
 };
@@ -276,11 +291,19 @@ export type CompleteTodoResultResolvers<ContextType = any, ParentType extends Re
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type DeleteTodoResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteTodoResult'] = ResolversParentTypes['DeleteTodoResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  todo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['TodoNotFoundError']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addTodo?: Resolver<ResolversTypes['AddTodoResult'], ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'text'>>,
   clearCompletedTodos?: Resolver<ResolversTypes['ClearCompletedTodosResult'], ParentType, ContextType>,
   completeTodo?: Resolver<ResolversTypes['CompleteTodoResult'], ParentType, ContextType, RequireFields<MutationCompleteTodoArgs, 'id'>>,
   completeAllTodos?: Resolver<ResolversTypes['CompleteAllTodosResult'], ParentType, ContextType>,
+  deleteTodo?: Resolver<ResolversTypes['DeleteTodoResult'], ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'id'>>,
 };
 
 export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
@@ -344,6 +367,7 @@ export type Resolvers<ContextType = any> = {
   CompleteAllTodosResult?: CompleteAllTodosResultResolvers<ContextType>,
   CompleteTodoError?: CompleteTodoErrorResolvers,
   CompleteTodoResult?: CompleteTodoResultResolvers<ContextType>,
+  DeleteTodoResult?: DeleteTodoResultResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
