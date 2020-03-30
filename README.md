@@ -18,7 +18,7 @@ This repo contains several versions of the same Todo app, both Apollo Client and
 
 ### Apollo Local State Example
 
-> Summary: Using Apollo Client 3's **Reactive Variables API** (docs/blog post coming soon), we can store the entire application state locally (and optionally persist it local storage).
+> Summary: Using Apollo Client 3's **Reactive Variables API** (docs/blog post coming soon), we can store the entire application state locally (and optionally persist it using local storage).
 
 [Check out the local state example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-local-state).
 
