@@ -26,9 +26,17 @@ export function useAddTodo () {
   >(
     ADD_TODO,
     {
-      refetchQueries: [{
-        query: GET_ALL_TODOS
-      }]
+      update (cache, { data }) {
+        cache.modify('ROOT_QUERY', {
+          todos (existingTodos, { toReference }) {
+            return [...existingTodos.edges, 
+              //@ts-ignore
+              { __typename: 'TodosEdge', node: toReference(data.addTodo.todo) }
+            ]             
+          }
+        })
+
+      }
     }
   )
   return { mutate, data, error };
