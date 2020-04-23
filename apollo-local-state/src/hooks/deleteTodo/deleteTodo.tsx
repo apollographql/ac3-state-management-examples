@@ -2,9 +2,10 @@
 import { Todo, Todos } from "../../models/Todos";
 import { ReactiveVar } from "@apollo/client";
 
-export default (todosVar: ReactiveVar<Todos>) => {
+export default function deleteTodo (todosVar: ReactiveVar<Todos>) {
   return (id: number) => {
     const allTodos = todosVar();
-    todosVar(allTodos.filter((todo: Todo) => todo.id !== id));
+    const filteredTodos = allTodos.filter((todo: Todo) => todo.id !== id);
+    todosVar(filteredTodos);
   }
 }

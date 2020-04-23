@@ -7,7 +7,7 @@ const deleteTodo = createDeleteTodo(mockTodosVar);
 describe('deleteTodo hook', () => {
   beforeEach(() => mockTodosVar([]));
   
-  it('should mark a todo as completed', () => {
+  it('should delete a todo from the list of todos', () => {
     mockTodosVar([{ id: 0, text: 'First todo', completed: false }])
     deleteTodo(0);
 

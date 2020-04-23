@@ -2,14 +2,24 @@
 import { Todos } from "./models/Todos";
 import { VisiblityFilter, VisibilityFilters } from "./models/VisibilityFilter";
 
-let currentTodosValue: Todos = [];
+// This is how to create a mock reactive variable.
+// It's a good idea to do this because then we can test our
+// interaction logic.
 
-export function mockTodosVar (newValue?: Todos | undefined) : Todos {
-  if (newValue) {
-    currentTodosValue = newValue;
+export function createMockReactiveVar<T> () {
+  let currentValue: T;
+
+  return function mockReactiveVar (
+    newValue?: T | undefined
+  ) : T {
+    if (newValue) {
+      currentValue = newValue;
+    }
+    return currentValue;
   }
-  return currentTodosValue;
 }
+
+const mockTodosVar = createMockReactiveVar<Todos>();
 
 let currentVisibilityFilter: VisiblityFilter = VisibilityFilters.SHOW_ALL;
 

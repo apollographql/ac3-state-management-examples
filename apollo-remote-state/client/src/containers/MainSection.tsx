@@ -1,7 +1,7 @@
 
 import React from 'react'
 import MainSection from '../components/MainSection'
-import { useQuery } from '@apollo/client'
+import { useQuery, gql } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
 import { useTodos } from '../hooks'
 import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'
@@ -10,7 +10,24 @@ import { GetAllTodos } from '../operations/__generated__/GetAllTodos'
 import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTodos'
 import { useCompleteAllTodos } from '../operations/mutations/completeAllTodos'
 
+const GET_LAST_TODOS = gql`
+  query GetAllTodos {
+    todos (last: 1) {
+      edges {
+        node {
+          id
+          text
+          completed
+        }
+      }
+    }
+  }
+`
+
 export default function Main () {
+  const result = useQuery(GET_LAST_TODOS);
+  console.log('result', result)
+
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
   const { data: visibilityFilter } = useQuery<VisiblityFilter>(GET_VISIBILITY_FILTER);
   const { setVisibilityFilter } = useTodos();
