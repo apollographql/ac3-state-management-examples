@@ -23,9 +23,6 @@ export function useClearCompletedTodos () {
   >(
     CLEAR_COMPLETED_TODOS,
     {
-      refetchQueries: [{
-        query: GET_ALL_TODOS
-      }],
       update (cache) {
         const result = cache.readQuery<GetAllTodosTypes.GetAllTodos>({
           query: GET_ALL_TODOS

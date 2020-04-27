@@ -8,7 +8,7 @@ import createEditTodo from "./editTodo/editTodo";
 import createSetVisibilityFilter from "./setVisibilityFilter/setVisibilityFilter";
 import { todosVar, visibilityFilterVar } from "../../cache";
 
-export const todoOperations = {
+export const todoMutations = {
   addTodo: createAddTodo(todosVar),
   clearCompletedTodos: createClearCompletedTodos(todosVar),
   completeTodo: createCompleteTodo(todosVar),
