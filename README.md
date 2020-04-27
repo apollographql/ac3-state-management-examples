@@ -24,9 +24,21 @@ This repo contains several versions of the same Todo app, both Apollo Client and
 
 ### Apollo Remote State Example
 
-> Summary: Hooking Apollo Client up to a remote GraphQL API, the client-side cache is smart enough to automatically update the cache after _most_ mutations successfully complete. For mutations that perform interactions against arrays or have additional client-side side-effects, we can help the cache decide what to do next by writing our update logic in the `useMutation`'s `update` function.
+> Summary: Hooking Apollo Client up to a remote GraphQL API, the client-side cache is smart enough to automatically update the cache after _most_ mutations successfully complete. For mutations that perform interactions against arrays or have additional client-side side-effects, we can help the cache decide what to do next by writing our update logic in the `useMutation`'s `update` function. This approach uses the `writeQuery` and `readQuery` APIs which are recommended for those starting out with Apollo Client.
 
 [Check out the remote state example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state)
+
+### Apollo Remote State Advanced Cache APIs Example
+
+> Summary: This example is the same as the previous remote state example, except that this time, we're using the new AC3 cache manipulation APIs: `cache.modify` and `cache.evict`. This approach is recommended for users who are comfortable with how cache normalization works in Apollo Client and who want direct control over the cache.
+
+[Check out the remote state (advanced cache APIs) example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state-advanced-cache-apis)
+
+### Apollo Remote State Example
+
+> Summary: This example is the same as the previous remote state example, except that it doesn't use a Relay-style GraphQL schema. This is mostly used for presentations to keep code succinct.
+
+[Check out the remote state (no-relay) example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state-no-relay)
 
 ### Redux Local State Example
 
