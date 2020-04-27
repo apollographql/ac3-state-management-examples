@@ -39,6 +39,7 @@ export function useDeleteTodo () {
                 return deletedId !== readField('id', edge.node);
               })
             }
+            
             return newTodos;
           }
         });
