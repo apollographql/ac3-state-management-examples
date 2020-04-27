@@ -34,7 +34,7 @@ This repo contains several versions of the same Todo app, both Apollo Client and
 
 [Check out the remote state (advanced cache APIs) example](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state-advanced-cache-apis)
 
-### Apollo Remote State Example
+### Apollo Remote State (No Relay) Example
 
 > Summary: This example is the same as the previous remote state example, except that it doesn't use a Relay-style GraphQL schema. This is mostly used for presentations to keep code succinct.
 
