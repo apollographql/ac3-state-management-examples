@@ -42,16 +42,14 @@ export function useEditTodo () {
           cache.writeQuery({
             query: GET_ALL_TODOS,
             data: {
-              todos: {
-                edges: allTodos?.todos.map(
-                  (t) => t?.id === data?.editTodo.todo?.id ? {
+              todos: allTodos?.todos.map(
+                (t) => t?.id === data?.editTodo.todo?.id ? {
+                  ...t,
+                  node: {
                     ...t,
-                    node: {
-                      ...t,
-                      text: data?.editTodo.todo?.text
-                    }
-                } : t)
-              },
+                    text: data?.editTodo.todo?.text
+                  }
+              } : t)
             },
           });
         }
