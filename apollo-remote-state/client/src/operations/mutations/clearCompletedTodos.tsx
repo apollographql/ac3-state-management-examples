@@ -24,14 +24,19 @@ export function useClearCompletedTodos () {
     CLEAR_COMPLETED_TODOS,
     {
       update (cache) {
-        const result = cache.readQuery<GetAllTodosTypes.GetAllTodos>({
+        const allTodos = cache.readQuery<GetAllTodosTypes.GetAllTodos>({
           query: GET_ALL_TODOS
         });
-        const todosToDelete = result?.todos.edges.map((n) => n?.node);
 
-        todosToDelete?.forEach((todo) => {
-          cache.evict(`Todo:${todo?.id}`)
-        })
+        cache.writeQuery({
+          query: GET_ALL_TODOS,
+          data: {
+            todos: {
+              edges: allTodos?.todos.edges
+                .filter((t) => !t?.node.completed)
+            },
+          },
+        });
       }
     }
   )

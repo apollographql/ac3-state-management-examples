@@ -1,6 +1,8 @@
 
 import { gql, useMutation } from "@apollo/client";
 import * as DeleteTodoTypes from './__generated__/DeleteTodo'
+import { GET_ALL_TODOS } from "../queries/getAllTodos";
+import { GetAllTodos } from "../__generated__/GetAllTodos";
 
 export const DELETE_TODO = gql`
   mutation DeleteTodo ($id: Int!) {
@@ -27,24 +29,20 @@ export function useDeleteTodo () {
   >(
     DELETE_TODO,
     {
-      update (cache, el) {
-        const deletedId = el.data?.deleteTodo.todo?.id
-        
-        cache.modify('ROOT_QUERY', {
-          todos (existingTodos, { readField }) {
-        
-            const newTodos = {
-              ...existingTodos,
-              edges: existingTodos.edges.filter((edge: any) => {
-                return deletedId !== readField('id', edge.node);
-              })
-            }
-            
-            return newTodos;
-          }
+      update (cache, { data }) {
+        const deletedTodoId = data?.deleteTodo.todo?.id;
+        const allTodos = cache.readQuery<GetAllTodos>({
+          query: GET_ALL_TODOS
         });
 
-        cache.evict(`Todo:${deletedId}`)
+        cache.writeQuery({
+          query: GET_ALL_TODOS,
+          data: {
+            todos: {
+              edges: allTodos?.todos.edges.filter((t) => t?.node.id !== deletedTodoId)
+            },
+          },
+        });
       }
     }
   )
