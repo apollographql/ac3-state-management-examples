@@ -20,38 +20,6 @@ export const ADD_TODO = gql`
   }
 `
 
-/** 
- * This is the first way that I attempted to get this to work 
- * and it "DOES" work now that I figured out the response type for 
- * this thing correctly.
- */
-
-// export function addTodo () {
-//   const [mutate, { data, error }] = useMutation<
-//     AddTodoTypes.AddTodo, 
-//     AddTodoTypes.AddTodoVariables
-//   >(
-//     ADD_TODO,
-//     {
-//       update (cache, { data }) {
-//         cache.modify('ROOT_QUERY', {
-//           todos (existingTodos, { toReference }) {
-//             return {
-//               ...existingTodos,
-//               edges: [...existingTodos.edges, 
-//                 //@ts-ignore
-//                 { __typename: 'TodosEdge', node: toReference(data.addTodo.todo) }
-//               ]   
-//             }          
-//           }
-//         })
-
-//       }
-//     }
-//   )
-//   return { mutate, data, error };
-// }
-
 export function useAddTodo () {
   const [mutate, { data, error }] = useMutation<
     AddTodoTypes.AddTodo, 
