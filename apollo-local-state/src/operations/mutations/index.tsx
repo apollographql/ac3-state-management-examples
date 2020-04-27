@@ -6,7 +6,7 @@ import createCompleteAllTodos from "./completeAllTodos/completeAllTodos";
 import createDeleteTodo from "./deleteTodo/deleteTodo";
 import createEditTodo from "./editTodo/editTodo";
 import createSetVisibilityFilter from "./setVisibilityFilter/setVisibilityFilter";
-import { todosVar, visibilityFilterVar } from "../cache";
+import { todosVar, visibilityFilterVar } from "../../cache";
 
 export function useTodos () {
   return {

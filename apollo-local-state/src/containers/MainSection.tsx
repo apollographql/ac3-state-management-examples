@@ -4,9 +4,9 @@ import MainSection from '../components/MainSection'
 import { useQuery } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
 import { Todos } from '../models/Todos'
-import { useTodos } from '../hooks'
-import { GET_ALL_TODOS } from '../queries/getAllTodos'
-import { GET_VISIBILITY_FILTER } from '../queries/getVisibilityFilter'
+import { useTodos } from '../operations/mutations'
+import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'
+import { GET_VISIBILITY_FILTER } from '../operations/queries/getVisibilityFilter'
 
 /** 
  * We **could** use the todosVar and the

@@ -1,5 +1,5 @@
 
-import { Todos, Todo } from "../../models/Todos";
+import { Todos, Todo } from "../../../models/Todos";
 import { ReactiveVar } from "@apollo/client";
 
 export default function createAddTodo (todosVar: ReactiveVar<Todos>) {

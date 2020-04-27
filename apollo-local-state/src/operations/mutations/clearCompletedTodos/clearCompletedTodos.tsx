@@ -1,6 +1,6 @@
 
 import { ReactiveVar } from "@apollo/client";
-import { Todos } from "../../models/Todos";
+import { Todos } from "../../../models/Todos";
 
 export default function createClearCompletedTodos (
   todosVar: ReactiveVar<Todos>

@@ -4,7 +4,7 @@ import { visibilityFilterVar, todosVar } from '../cache'
 import TodoList from '../components/TodoList';
 import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
 import { Todos } from '../models/Todos';
-import { useTodos } from '../hooks';
+import { useTodos } from '../operations/mutations';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter.id) {

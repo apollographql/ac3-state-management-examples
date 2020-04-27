@@ -1,6 +1,6 @@
 
 import createEditTodo from './editTodo'
-import { mockTodosVar } from '../../cache.spec'
+import { mockTodosVar } from '../../../tests/mocks/mockTodosVar';
 
 const editTodo = createEditTodo(mockTodosVar);
 

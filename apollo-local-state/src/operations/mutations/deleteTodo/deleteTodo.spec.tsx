@@ -1,6 +1,6 @@
 
 import createDeleteTodo from './deleteTodo'
-import { mockTodosVar } from '../../cache.spec'
+import { mockTodosVar } from '../../../tests/mocks/mockTodosVar';
 
 const deleteTodo = createDeleteTodo(mockTodosVar);
 

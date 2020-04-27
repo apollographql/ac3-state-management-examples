@@ -1,6 +1,6 @@
 
 import createClearCompletedTodos from './clearCompletedTodos'
-import { mockTodosVar } from '../../cache.spec'
+import { mockTodosVar } from '../../../tests/mocks/mockTodosVar';
 
 const clearCompletedTodos = createClearCompletedTodos(mockTodosVar);
 
