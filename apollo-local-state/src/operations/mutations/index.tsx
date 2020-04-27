@@ -8,14 +8,12 @@ import createEditTodo from "./editTodo/editTodo";
 import createSetVisibilityFilter from "./setVisibilityFilter/setVisibilityFilter";
 import { todosVar, visibilityFilterVar } from "../../cache";
 
-export function useTodos () {
-  return {
-    addTodo: createAddTodo(todosVar),
-    clearCompletedTodos: createClearCompletedTodos(todosVar),
-    completeTodo: createCompleteTodo(todosVar),
-    completeAllTodos: createCompleteAllTodos(todosVar),
-    deleteTodo: createDeleteTodo(todosVar),
-    editTodo: createEditTodo(todosVar),
-    setVisibilityFilter: createSetVisibilityFilter(visibilityFilterVar)
-  }
+export const todoOperations = {
+  addTodo: createAddTodo(todosVar),
+  clearCompletedTodos: createClearCompletedTodos(todosVar),
+  completeTodo: createCompleteTodo(todosVar),
+  completeAllTodos: createCompleteAllTodos(todosVar),
+  deleteTodo: createDeleteTodo(todosVar),
+  editTodo: createEditTodo(todosVar),
+  setVisibilityFilter: createSetVisibilityFilter(visibilityFilterVar)
 }

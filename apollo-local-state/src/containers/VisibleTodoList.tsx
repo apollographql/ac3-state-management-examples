@@ -4,7 +4,7 @@ import { visibilityFilterVar, todosVar } from '../cache'
 import TodoList from '../components/TodoList';
 import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
 import { Todos } from '../models/Todos';
-import { useTodos } from '../operations/mutations';
+import { todoOperations } from '../operations/mutations';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter.id) {
@@ -20,7 +20,7 @@ function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos
 }
 
 export default function VisibleTodoList () {
-  const { completeTodo, deleteTodo, editTodo } = useTodos();
+  const { completeTodo, deleteTodo, editTodo } = todoOperations;
   const todos = todosVar();
   const filteredTodos = filterTodosByVisibility(visibilityFilterVar(), todos);
 
