@@ -26,7 +26,7 @@ export const ADD_TODO = gql`
  * this thing correctly.
  */
 
-// export function useAddTodo () {
+// export function addTodo () {
 //   const [mutate, { data, error }] = useMutation<
 //     AddTodoTypes.AddTodo, 
 //     AddTodoTypes.AddTodoVariables
