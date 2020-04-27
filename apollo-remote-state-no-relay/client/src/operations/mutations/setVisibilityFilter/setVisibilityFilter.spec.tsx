@@ -1,7 +1,7 @@
 
 import createSetVisibilityFilter from './setVisibilityFilter'
-import { mockVisibilityFilter } from '../../cache.spec'
-import { VisibilityFilters } from '../../models/VisibilityFilter';
+import { mockVisibilityFilter } from '../../../cache.spec'
+import { VisibilityFilters } from '../../../models/VisibilityFilter';
 
 const setVisibilityFilter = createSetVisibilityFilter(mockVisibilityFilter);
 

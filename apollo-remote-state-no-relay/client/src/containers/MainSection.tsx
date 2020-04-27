@@ -3,12 +3,12 @@ import React from 'react'
 import MainSection from '../components/MainSection'
 import { useQuery } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
-import { useTodos } from '../hooks'
 import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'
 import { GET_VISIBILITY_FILTER } from '../operations/queries/getVisibilityFilter'
 import { GetAllTodos } from '../operations/queries/__generated__/GetAllTodos'
 import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTodos'
 import { useCompleteAllTodos } from '../operations/mutations/completeAllTodos'
+import { setVisibilityFilter } from '../operations/mutations/setVisibilityFilter'
 
 export default function Main () {
   const { 
@@ -17,7 +17,6 @@ export default function Main () {
     error: todosError 
   } = useQuery<GetAllTodos>(GET_ALL_TODOS);
   const { data: visibilityFilter } = useQuery<VisiblityFilter>(GET_VISIBILITY_FILTER);
-  const { setVisibilityFilter } = useTodos();
   
   const { mutate: clearCompletedTodos } = useClearCompletedTodos();
   const { mutate: completeAllTodos } = useCompleteAllTodos();
