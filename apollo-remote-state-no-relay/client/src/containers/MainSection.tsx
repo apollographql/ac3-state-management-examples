@@ -1,7 +1,7 @@
 
 import React from 'react'
 import MainSection from '../components/MainSection'
-import { useQuery, gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
 import { useTodos } from '../hooks'
 import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'

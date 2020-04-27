@@ -65,8 +65,6 @@ export function useAddTodo () {
           query: GET_ALL_TODOS,
         });
 
-        debugger;
-
         if (existingTodos && newTodoFromResponse) {
           cache.writeQuery({
             query: GET_ALL_TODOS,
