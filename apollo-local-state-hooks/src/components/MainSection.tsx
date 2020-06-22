@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Footer from './Footer'
-import VisibleTodoList from '../containers/VisibleTodoList'
 import { VisiblityFilter } from '../models/VisibilityFilter';
 
 interface MainSectionProps {
@@ -9,6 +8,7 @@ interface MainSectionProps {
   todosCount: number;
   completedCount: number;
   actions: any;
+  children: any;
 }
 
 /** 
@@ -21,7 +21,8 @@ const MainSection = ({
   activeVisibilityFilter,
   todosCount,
   completedCount,
-  actions
+  actions,
+  children
 }: MainSectionProps) => (
   <section className="main">
     {!!todosCount && (
@@ -35,7 +36,7 @@ const MainSection = ({
         <label onClick={actions.completeAllTodos} />
       </span>
     )}
-    <VisibleTodoList />
+    {children}
     {!!todosCount && (
       <Footer
         activeVisibilityFilter={activeVisibilityFilter}

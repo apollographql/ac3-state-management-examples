@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import App from './components/App'
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import 'todomvc-app-css/index.css'
 import { cache } from './cache';
 import { persistCache } from 'apollo-cache-persist'
+import MainSection from './containers/MainSection';
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
 persistCache({
@@ -19,7 +19,7 @@ export const client = new ApolloClient({
 
 render(
   <ApolloProvider client={client}>
-    <App />
+    <MainSection />
   </ApolloProvider>,
   document.getElementById('root')
 )

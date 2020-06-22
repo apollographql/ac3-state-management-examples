@@ -1,8 +1,9 @@
 
 import { Todos, Todo } from "../models/Todos";
 import { ReactiveVar } from "@apollo/client";
+import { VisiblityFilter } from "../models/VisibilityFilter";
 
-export function useTodos (todosVar: ReactiveVar<Todos>) {
+export function useTodos (todosVar: ReactiveVar<Todos>, visibilityFilterVar: ReactiveVar<VisiblityFilter>) {
   
   const addTodo = (text: string) => {
     const createNewTodoId = (allTodos: Todos) => {
@@ -46,12 +47,27 @@ export function useTodos (todosVar: ReactiveVar<Todos>) {
     todosVar(filteredTodos);
   }
 
-  const editTodo = () => {
+  const editTodo = (id: number, text: string) => {
+    let todosWithEditedTodo = todosVar()
+      .map((todo: Todo) => todo.id === id ? { ...todo, text } : todo);
+    
+    todosVar(todosWithEditedTodo);
+  }
 
+  const setVisibilityFilter = (filter: VisiblityFilter) => {
+    visibilityFilterVar(filter);
   }
 
   return {
-    operations: { addTodo, clearCompletedTodos }
+    operations: { 
+      addTodo, 
+      clearCompletedTodos, 
+      completeTodo, 
+      completeAllTodos, 
+      deleteTodo, 
+      editTodo,
+      setVisibilityFilter
+    }
   }
   
 }
