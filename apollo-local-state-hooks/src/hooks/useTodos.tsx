@@ -3,7 +3,10 @@ import { Todos, Todo } from "../models/Todos";
 import { ReactiveVar } from "@apollo/client";
 import { VisiblityFilter } from "../models/VisibilityFilter";
 
-export function useTodos (todosVar: ReactiveVar<Todos>, visibilityFilterVar: ReactiveVar<VisiblityFilter>) {
+export function useTodos (
+  todosVar: ReactiveVar<Todos>, 
+  visibilityFilterVar: ReactiveVar<VisiblityFilter>
+) {
   
   const addTodo = (text: string) => {
     const createNewTodoId = (allTodos: Todos) => {
