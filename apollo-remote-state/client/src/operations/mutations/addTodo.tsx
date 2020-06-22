@@ -2,7 +2,7 @@
 import { gql, useMutation } from "@apollo/client";
 import * as AddTodoTypes from './__generated__/AddTodo';
 import { GET_ALL_TODOS } from "../queries/getAllTodos";
-import { GetAllTodos } from "../__generated__/GetAllTodos";
+import { GetAllTodos } from "../queries/__generated__/GetAllTodos";
 
 export const ADD_TODO = gql`
   mutation AddTodo ($text: String!) {
@@ -21,7 +21,7 @@ export const ADD_TODO = gql`
 `
 
 export function useAddTodo () {
-  const [mutate, { data, error }] = useMutation<
+  const [mutate, { data, error, loading }] = useMutation<
     AddTodoTypes.AddTodo, 
     AddTodoTypes.AddTodoVariables
   >(
@@ -49,5 +49,5 @@ export function useAddTodo () {
       }
     }
   )
-  return { mutate, data, error };
+  return { mutate, data, error, loading };
 }

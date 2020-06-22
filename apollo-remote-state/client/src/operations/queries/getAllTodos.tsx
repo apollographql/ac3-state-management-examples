@@ -9,6 +9,7 @@ export const GET_ALL_TODOS = gql`
           id
           text
           completed
+          isSelected @client
         }
       }
     }

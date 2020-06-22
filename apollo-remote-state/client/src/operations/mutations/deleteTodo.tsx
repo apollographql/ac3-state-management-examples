@@ -2,7 +2,7 @@
 import { gql, useMutation } from "@apollo/client";
 import * as DeleteTodoTypes from './__generated__/DeleteTodo'
 import { GET_ALL_TODOS } from "../queries/getAllTodos";
-import { GetAllTodos } from "../__generated__/GetAllTodos";
+import { GetAllTodos } from "../queries/__generated__/GetAllTodos";
 
 export const DELETE_TODO = gql`
   mutation DeleteTodo ($id: Int!) {
@@ -35,14 +35,17 @@ export function useDeleteTodo () {
           query: GET_ALL_TODOS
         });
 
-        cache.writeQuery({
-          query: GET_ALL_TODOS,
-          data: {
-            todos: {
-              edges: allTodos?.todos.edges.filter((t) => t?.node.id !== deletedTodoId)
-            },
-          },
-        });
+        // cache.writeQuery({
+        //   query: GET_ALL_TODOS,
+        //   data: {
+        //     todos: {
+        //       edges: allTodos?.todos.edges
+        //         .filter((t) => t?.node.id !== deletedTodoId)
+        //     },
+        //   },
+        // });
+
+        cache.evict(`Todo:${deletedTodoId}`)
       }
     }
   )

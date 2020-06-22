@@ -1,28 +1,32 @@
 
 import createAddTodo from './addTodo'
-import { mockTodosVar } from '../../../tests/mocks/mockTodosVar';
+// import { mockTodosVar } from '../../../tests/mocks/mockTodosVar';
+import { cache, todosVar } from '../../../cache';
+import { Todos } from '../../../models/Todos';
 
-const addTodo = createAddTodo(mockTodosVar);
+// const todosVar = cache.makeVar<Todos>([]);
+
+const addTodo = createAddTodo(todosVar);
 
 describe('addTodos hook', () => {
-  beforeEach(() => mockTodosVar([]));
+  beforeEach(() => todosVar([]));
   
   it('should add a todo', () => {
     addTodo('First todo')
     expect(
-      mockTodosVar()
+      todosVar()
     ).toHaveLength(1)
 
     expect(
-      mockTodosVar()[0].id
+      todosVar()[0].id
     ).toEqual(0)
 
     expect(
-      mockTodosVar()[0].completed
+      todosVar()[0].completed
     ).toEqual(false)
 
     expect(
-      mockTodosVar()[0].text
+      todosVar()[0].text
     ).toEqual('First todo')
   })
 })

@@ -17,6 +17,7 @@ import { Context } from './index'
 const resolvers: Resolvers = {
   Mutation: {
     addTodo: async (_, { text }, context: Context): Promise<AddTodoResult> => {
+      console.log('Adding todo')
       const { todosRepo } = context;
       try {
         await todosRepo.addTodo(text);
@@ -91,7 +92,8 @@ const resolvers: Resolvers = {
     }
   },
   Query: {
-    todos: async (_, { after, before, first, last }, context: Context): Promise<TodosConnection> => {
+    todos: async (_, { after, before, first, last, completed }, context: Context): Promise<TodosConnection> => {
+      console.log("Getting all todos")
       const { todosRepo } = context;
       const todos = await todosRepo.getAllTodos();
 
@@ -108,9 +110,18 @@ const resolvers: Resolvers = {
       queryTodos = PaginationUtils
         .filterByBeforeAndAfter(queryTodos, after, before) as Todo[];
 
+      const shouldApplyCompletedFilter = typeof completed === "boolean";
+
+      if (shouldApplyCompletedFilter) {
+        queryTodos = queryTodos.filter((t) => {
+          return t.completed === completed
+        })
+      }
+
       return TodoMapper.toTodosConnection(queryTodos);
     },
     todo: async (_, { id }, context: Context): Promise<TodoResult> => {
+      console.log("Getting a todo by id")
       const { todosRepo } = context;
       try {
         const todo = await todosRepo.getTodoById(id);

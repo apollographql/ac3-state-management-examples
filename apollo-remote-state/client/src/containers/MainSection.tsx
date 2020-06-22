@@ -5,29 +5,13 @@ import { useQuery, gql } from '@apollo/client'
 import { VisiblityFilter } from '../models/VisibilityFilter'
 import { GET_ALL_TODOS } from '../operations/queries/getAllTodos'
 import { GET_VISIBILITY_FILTER } from '../operations/queries/getVisibilityFilter'
-import { GetAllTodos } from '../operations/__generated__/GetAllTodos'
 import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTodos'
 import { useCompleteAllTodos } from '../operations/mutations/completeAllTodos'
 import setVisibilityFilter from '../operations/mutations/setVisibilityFilter/setVisibilityFilter'
+import { GetAllTodos } from '../operations/queries/__generated__/GetAllTodos'
 
-const GET_LAST_TODOS = gql`
-  query GetAllTodos {
-    todos (last: 1) {
-      edges {
-        node {
-          id
-          text
-          completed
-        }
-      }
-    }
-  }
-`
 
 export default function Main () {
-  const result = useQuery(GET_LAST_TODOS);
-  console.log('result', result)
-
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
   const { data: visibilityFilter } = useQuery<VisiblityFilter>(GET_VISIBILITY_FILTER);
   
@@ -39,6 +23,7 @@ export default function Main () {
   if (!todosConnection) return <div>None</div>;
   const todos = todosConnection.todos.edges.map((t) => t?.node)
   
+  console.log(todos);
   return (
     <MainSection
       activeVisibilityFilter={visibilityFilter as VisiblityFilter}

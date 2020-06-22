@@ -1,15 +1,16 @@
 
 import React from 'react'
-import { visibilityFilterVar } from '../cache'
+import { visibilityFilterVar, currentSelectedTodoIds } from '../cache'
 import TodoList from '../components/TodoList';
 import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
 import { Todos } from '../models/Todos';
 import { useQuery } from '@apollo/client';
-import { GetAllTodos } from '../operations/__generated__/GetAllTodos';
 import { GET_ALL_TODOS } from '../operations/queries/getAllTodos';
 import { useCompleteTodo } from '../operations/mutations/completeTodo';
 import { useDeleteTodo } from '../operations/mutations/deleteTodo';
 import { useEditTodo } from '../operations/mutations/editTodo';
+import { GetAllTodos } from '../operations/queries/__generated__/GetAllTodos';
+import createToggleSelectTodo from '../operations/mutations/toggleSelectTodo';
 
 function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
   switch (visibilityFilter.id) {
@@ -28,6 +29,7 @@ export default function VisibleTodoList () {
   const { mutate: completeTodo } = useCompleteTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
   const { mutate: editTodo } = useEditTodo();
+  const toggleSelectedTodo = createToggleSelectTodo(currentSelectedTodoIds);
 
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
 
@@ -44,5 +46,6 @@ export default function VisibleTodoList () {
       completeTodo: (id: number) => completeTodo({ variables: { id }}),
       deleteTodo: (id: number) => deleteTodo({ variables: { id }}),
       editTodo: (id: number, text: string) => editTodo({ variables: { id, text }}),
+      toggleSelectedTodo: (id: number) => toggleSelectedTodo(id)
     }}/>;
 }

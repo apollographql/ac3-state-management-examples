@@ -25,7 +25,7 @@ export function useClearCompletedTodos () {
 
         let todoIdsToDelete: number[] = [];
 
-        cache.modify(`ROOT_QUERY`, {
+        cache.modify({
           todos (existingTodosConnection, { readField }) {
 
             const newTodos = {

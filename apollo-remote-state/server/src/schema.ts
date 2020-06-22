@@ -35,7 +35,8 @@ const typeDefs = gql`
       after: String, 
       before: String, 
       first: Int, 
-      last: Int
+      last: Int,
+      completed: Boolean
     ): TodosConnection!
 
     todo (id: Int!): TodoResult!

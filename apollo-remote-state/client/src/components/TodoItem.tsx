@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
+import viewIcon from '../assets/icons/view.svg'
+import {
+  Link
+} from "react-router-dom";
 
 type Props = any;
 
@@ -10,7 +14,7 @@ export default class TodoItem extends Component<Props, Props> {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    completeTodo: PropTypes.func.isRequired
+    completeTodo: PropTypes.func.isRequired,
   }
 
   state = {
@@ -31,7 +35,7 @@ export default class TodoItem extends Component<Props, Props> {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { todo, completeTodo, deleteTodo, toggleSelectedTodo } = this.props
 
     let element
     if (this.state.editing) {
@@ -42,7 +46,7 @@ export default class TodoItem extends Component<Props, Props> {
       )
     } else {
       element = (
-        <div className="view">
+        <div className="view flex-center">
           <input className="toggle"
                  type="checkbox"
                  checked={todo.completed}
@@ -52,6 +56,7 @@ export default class TodoItem extends Component<Props, Props> {
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>
+          <div className="view-icon"><Link to={`/todo/${todo.id}`}><img src={viewIcon}/></Link></div>
           <button className="destroy"
                   onClick={() => deleteTodo(todo.id)} />
         </div>
@@ -59,7 +64,7 @@ export default class TodoItem extends Component<Props, Props> {
     }
 
     return (
-      <li className={classnames({
+      <li onClick={() => toggleSelectedTodo ? toggleSelectedTodo(todo.id) : ''} className={classnames({
         completed: todo.completed,
         editing: this.state.editing
       })}>

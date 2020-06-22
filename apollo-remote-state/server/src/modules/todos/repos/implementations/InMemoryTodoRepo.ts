@@ -5,7 +5,7 @@ export class InMemoryTodoRepo implements TodoRepo {
   private todos: Todo[] = [
     { id: 1, text: "Getting started", completed: false },
     { id: 2, text: "Second todo", completed: false },
-    { id: 3, text: "Third todo", completed: false },
+    { id: 3, text: "Third todo ;)", completed: false },
   ];
 
   private lastTodoId: number = this.todos.length;

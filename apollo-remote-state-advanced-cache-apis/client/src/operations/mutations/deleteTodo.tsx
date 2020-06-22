@@ -30,7 +30,7 @@ export function useDeleteTodo () {
       update (cache, el) {
         const deletedId = el.data?.deleteTodo.todo?.id
         
-        cache.modify('ROOT_QUERY', {
+        cache.modify({
           todos (existingTodos, { readField }) {
         
             const newTodos = {

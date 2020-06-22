@@ -112,6 +112,7 @@ export type QueryTodosArgs = {
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  completed?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -232,10 +233,10 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   TodosConnection: ResolverTypeWrapper<TodosConnection>,
   TodosEdge: ResolverTypeWrapper<TodosEdge>,
   Todo: ResolverTypeWrapper<Todo>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   PageInfo: ResolverTypeWrapper<PageInfo>,
   TodoResult: ResolversTypes['Todo'] | ResolversTypes['TodoNotFoundError'],
   TodoNotFoundError: ResolverTypeWrapper<TodoNotFoundError>,
@@ -259,10 +260,10 @@ export type ResolversParentTypes = {
   Query: {},
   String: Scalars['String'],
   Int: Scalars['Int'],
+  Boolean: Scalars['Boolean'],
   TodosConnection: TodosConnection,
   TodosEdge: TodosEdge,
   Todo: Todo,
-  Boolean: Scalars['Boolean'],
   PageInfo: PageInfo,
   TodoResult: ResolversParentTypes['Todo'] | ResolversParentTypes['TodoNotFoundError'],
   TodoNotFoundError: TodoNotFoundError,

@@ -26,7 +26,7 @@ export function useAddTodo () {
     ADD_TODO,
     {
       update (cache, { data }) {
-        cache.modify('ROOT_QUERY', {
+        cache.modify({
           todos (existingTodos, { toReference }) {
             return {
               ...existingTodos,
