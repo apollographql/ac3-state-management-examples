@@ -38,7 +38,9 @@ export function useDeleteTodo () {
           data: {
             todos: allTodos?.todos.filter((t) => t?.id !== deletedId)
           }
-        })
+        });
+
+        cache.evict({ id: `Todo:${deletedId}`})
       }
     }
   )

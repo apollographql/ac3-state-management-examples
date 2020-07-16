@@ -30,21 +30,23 @@ export function useDeleteTodo () {
       update (cache, el) {
         const deletedId = el.data?.deleteTodo.todo?.id
         
-        cache.modify('ROOT_QUERY', {
-          todos (existingTodos, { readField }) {
+        cache.modify({
+          fields: {
+            todos (existingTodos, { readField }) {
         
-            const newTodos = {
-              ...existingTodos,
-              edges: existingTodos.edges.filter((edge: any) => {
-                return deletedId !== readField('id', edge.node);
-              })
+              const newTodos = {
+                ...existingTodos,
+                edges: existingTodos.edges.filter((edge: any) => {
+                  return deletedId !== readField('id', edge.node);
+                })
+              }
+              
+              return newTodos;
             }
-            
-            return newTodos;
           }
         });
 
-        cache.evict(`Todo:${deletedId}`)
+        cache.evict({ id: `Todo:${deletedId}` })
       }
     }
   )

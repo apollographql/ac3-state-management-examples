@@ -22,31 +22,32 @@ export function useClearCompletedTodos () {
     CLEAR_COMPLETED_TODOS,
     {
       update (cache) {
-
         let todoIdsToDelete: number[] = [];
 
-        cache.modify(`ROOT_QUERY`, {
-          todos (existingTodosConnection, { readField }) {
+        cache.modify({
+          fields: {
+            todos (existingTodosConnection, { readField }) {
 
-            const newTodos = {
-              ...existingTodosConnection,
-              edges: existingTodosConnection.edges.filter((edge: any) => {
-                const shouldDelete = readField('completed', edge.node);
-                
-                if (shouldDelete) {
-                  todoIdsToDelete.push(readField('id', edge.node))
-                }
-                
-                return !shouldDelete;
-              })
+              const completedTodosCleared = {
+                ...existingTodosConnection,
+                edges: existingTodosConnection.edges.filter((edge: any) => {
+                  const shouldDelete = readField('completed', edge.node);
+                  
+                  if (shouldDelete) {
+                    todoIdsToDelete.push(readField('id', edge.node) as number)
+                  }
+                  
+                  return !shouldDelete;
+                })
+              }
+              
+              return completedTodosCleared;
             }
-            
-            return newTodos;
           }
         })
 
         todoIdsToDelete?.forEach((todoId) => {
-          cache.evict(`Todo:${todoId}`)
+          cache.evict({ id: `Todo:${todoId}` })
         })
       }
     }

@@ -33,7 +33,7 @@ export function useClearCompletedTodos () {
         const todosToDelete = result?.todos;
 
         todosToDelete?.forEach((todo) => {
-          cache.evict(`Todo:${todo?.id}`)
+          cache.evict({ id: `Todo:${todo?.id}` })
         })
       }
     }

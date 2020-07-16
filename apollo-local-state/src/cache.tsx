@@ -1,5 +1,5 @@
 
-import { InMemoryCache, ReactiveVar } from "@apollo/client";
+import { InMemoryCache, ReactiveVar, makeVar } from "@apollo/client";
 import { Todos } from "./models/Todos";
 import { VisiblityFilter, VisibilityFilters } from "./models/VisibilityFilter";
 
@@ -34,10 +34,10 @@ const todosInitialValue: Todos = [
   }
 ]
 
-export const todosVar: ReactiveVar<Todos> = cache.makeVar<Todos>(
+export const todosVar: ReactiveVar<Todos> = makeVar<Todos>(
   todosInitialValue
 );
 
-export const visibilityFilterVar = cache.makeVar<VisiblityFilter>(
+export const visibilityFilterVar = makeVar<VisiblityFilter>(
   VisibilityFilters.SHOW_ALL
 )

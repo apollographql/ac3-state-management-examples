@@ -1,5 +1,5 @@
 
-import { InMemoryCache } from "@apollo/client";
+import { InMemoryCache, makeVar } from "@apollo/client";
 import { VisibilityFilters, VisiblityFilter } from "./models/VisibilityFilter";
 
 export const cache: InMemoryCache = new InMemoryCache({
@@ -20,6 +20,6 @@ export const cache: InMemoryCache = new InMemoryCache({
  * Set initial values when we create cache variables.
  */
 
-export const visibilityFilterVar = cache.makeVar<VisiblityFilter>(
+export const visibilityFilterVar = makeVar<VisiblityFilter>(
   VisibilityFilters.SHOW_ALL
 )
