@@ -4,7 +4,7 @@ Summary: Hooking Apollo Client up to a remote GraphQL API, the client-side cache
 
 This example uses the new Apollo Client 3 cache manipulation APIs: `cache.modify` and `cache.evict`. For users familiar with how cache normalization works, this approach is generally preferred because it provides more direct access to the cache over the simpler `cache.readQuery`/`cache.writeQuery` approach.
 
-For those just starting out with Apollo Client, we recommend using the `cache.readQuery` and `cache.writerQuery` API example [found here](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state) instead.
+For those just starting out with Apollo Client, we recommend using the `cache.readQuery` and `cache.writeQuery` API example [found here](https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-remote-state) instead.
 
 ## Getting started
 
