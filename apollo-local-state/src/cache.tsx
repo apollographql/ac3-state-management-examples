@@ -38,6 +38,6 @@ export const todosVar: ReactiveVar<Todos> = makeVar<Todos>(
   todosInitialValue
 );
 
-export const visibilityFilterVar = makeVar<VisiblityFilter>(
+export const visibilityFilterVar = makeVar<VisibilityFilter>(
   VisibilityFilters.SHOW_ALL
 )
