@@ -1,7 +1,7 @@
 
 import { InMemoryCache, ReactiveVar, makeVar } from "@apollo/client";
 import { Todos } from "./models/Todos";
-import { VisiblityFilter, VisibilityFilters } from "./models/VisibilityFilter";
+import { VisibilityFilter, VisibilityFilters } from "./models/VisibilityFilter";
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
