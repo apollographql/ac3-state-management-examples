@@ -1,5 +1,5 @@
 
-export type VisiblityFilter = {
+export type VisibilityFilter = {
   id: string;
   displayName: string;
 }
