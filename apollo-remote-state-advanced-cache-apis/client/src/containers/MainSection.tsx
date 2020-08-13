@@ -10,20 +10,6 @@ import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTo
 import { useCompleteAllTodos } from '../operations/mutations/completeAllTodos'
 import { setVisibilityFilter } from '../operations/mutations/setVisibilityFilter'
 
-const GET_LAST_TODOS = gql`
-  query GetAllTodos {
-    todos (last: 1) {
-      edges {
-        node {
-          id
-          text
-          completed
-        }
-      }
-    }
-  }
-`
-
 export default function Main () {
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
   const { data: visibilityFilter } = useQuery<VisiblityFilter>(GET_VISIBILITY_FILTER);
