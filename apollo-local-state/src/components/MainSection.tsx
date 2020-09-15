@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Footer from './Footer'
 import VisibleTodoList from '../containers/VisibleTodoList'
-import { VisiblityFilter } from '../models/VisibilityFilter';
+import { VisibilityFilter } from '../models/VisibilityFilter';
 
 interface MainSectionProps {
-  activeVisibilityFilter: VisiblityFilter;
+  activeVisibilityFilter: VisibilityFilter;
   todosCount: number;
   completedCount: number;
   actions: any;

@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from './Link'
-import { VisibilityFilters, VisiblityFilter } from '../models/VisibilityFilter';
+import { VisibilityFilters, VisibilityFilter } from '../models/VisibilityFilter';
 
 interface FooterProps {
-  activeVisibilityFilter: VisiblityFilter;
+  activeVisibilityFilter: VisibilityFilter;
   activeCount: number;
   completedCount: number;
   onClearCompleted: () => void;
-  setVisibilityFilter: (filter: VisiblityFilter) => void;
+  setVisibilityFilter: (filter: VisibilityFilter) => void;
 }
 
 const Footer = (props: FooterProps) => {

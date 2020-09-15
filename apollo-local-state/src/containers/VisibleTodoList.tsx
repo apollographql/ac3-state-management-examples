@@ -2,11 +2,11 @@
 import React from 'react'
 import { visibilityFilterVar, todosVar } from '../cache'
 import TodoList from '../components/TodoList';
-import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
+import { VisibilityFilter, VisibilityFilters } from '../models/VisibilityFilter';
 import { Todos } from '../models/Todos';
 import { todoMutations } from '../operations/mutations';
 
-function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
+function filterTodosByVisibility(visibilityFilter: VisibilityFilter, todos: Todos) {
   switch (visibilityFilter.id) {
     case VisibilityFilters.SHOW_ALL.id:
       return todos;
