@@ -5,3 +5,11 @@ workflows:
   node-tests:
     jobs:
       - node/test
+
+test:
+  override:
+    - cd apollo-local-state/client; npm run test
+    - cd apollo-remote-state-advanced-cache-apis/client; npm run test
+    - cd apollo-remote-state-no-relay/client; npm run test
+    - cd apollo-remote-state/client; npm run test
+    - cd redux-local-state; npm run test
