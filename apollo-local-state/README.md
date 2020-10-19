@@ -1,6 +1,6 @@
 # apollo-local-state
 
-> Summary: Using Apollo Client 3's **Reactive Variables API** (docs/blog post coming soon), we can store the entire application state locally (and optionally persist it using local storage).
+> Summary: Using Apollo Client 3's **Reactive Variables API**, we can store the entire application state locally (and optionally persist it using local storage).
 
 The key components that make this work are:
 
