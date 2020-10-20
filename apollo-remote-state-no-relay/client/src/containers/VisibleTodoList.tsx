@@ -2,7 +2,7 @@
 import React from 'react'
 import { visibilityFilterVar } from '../cache'
 import TodoList from '../components/TodoList';
-import { VisiblityFilter, VisibilityFilters } from '../models/VisibilityFilter';
+import { VisibilityFilter, VisibilityFilters } from '../models/VisibilityFilter';
 import { Todos } from '../models/Todos';
 import { useQuery } from '@apollo/client';
 import { GetAllTodos } from '../operations/queries/__generated__/GetAllTodos';
@@ -11,7 +11,7 @@ import { useCompleteTodo } from '../operations/mutations/completeTodo';
 import { useDeleteTodo } from '../operations/mutations/deleteTodo';
 import { useEditTodo } from '../operations/mutations/editTodo';
 
-function filterTodosByVisibility(visibilityFilter: VisiblityFilter, todos: Todos) {
+function filterTodosByVisibility(visibilityFilter: VisibilityFilter, todos: Todos) {
   switch (visibilityFilter.id) {
     case VisibilityFilters.SHOW_ALL.id:
       return todos;

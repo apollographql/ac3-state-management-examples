@@ -1,6 +1,6 @@
 
 import { Todos } from "./models/Todos";
-import { VisiblityFilter, VisibilityFilters } from "./models/VisibilityFilter";
+import { VisibilityFilter, VisibilityFilters } from "./models/VisibilityFilter";
 
 let currentTodosValue: Todos = [];
 
@@ -11,9 +11,9 @@ export function mockTodosVar (newValue?: Todos | undefined) : Todos {
   return currentTodosValue;
 }
 
-let currentVisibilityFilter: VisiblityFilter = VisibilityFilters.SHOW_ALL;
+let currentVisibilityFilter: VisibilityFilter = VisibilityFilters.SHOW_ALL;
 
-export function mockVisibilityFilter (newValue?: VisiblityFilter | undefined) : VisiblityFilter {
+export function mockVisibilityFilter (newValue?: VisibilityFilter | undefined) : VisibilityFilter {
   if (newValue) {
     currentVisibilityFilter = newValue;
   }
