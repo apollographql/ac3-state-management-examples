@@ -1,7 +1,7 @@
 
 import { createMockReactiveVar } from "../createMockReactiveVar";
-import { VisiblityFilter, VisibilityFilters } from "../../models/VisibilityFilter";
+import { VisibilityFilter, VisibilityFilters } from "../../models/VisibilityFilter";
 
-export const mockVisibilityFilter = createMockReactiveVar<VisiblityFilter>(
+export const mockVisibilityFilter = createMockReactiveVar<VisibilityFilter>(
   VisibilityFilters.SHOW_ALL
 );
