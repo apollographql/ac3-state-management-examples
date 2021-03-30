@@ -29,7 +29,9 @@ export default function VisibleTodoList () {
   const { mutate: deleteTodo } = useDeleteTodo();
   const { mutate: editTodo } = useEditTodo();
 
-  const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
+  const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(
+    GET_ALL_TODOS
+  );
 
   if (isTodosLoading) return <div>Loading...</div>
   if (todosError) return <div>An error occurred {JSON.stringify(todosError)}</div>

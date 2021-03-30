@@ -9,28 +9,12 @@ import { GetAllTodos } from '../operations/__generated__/GetAllTodos'
 import { useClearCompletedTodos } from '../operations/mutations/clearCompletedTodos'
 import { useCompleteAllTodos } from '../operations/mutations/completeAllTodos'
 import setVisibilityFilter from '../operations/mutations/setVisibilityFilter/setVisibilityFilter'
-
-const GET_LAST_TODOS = gql`
-  query GetAllTodos {
-    todos (last: 1) {
-      edges {
-        node {
-          id
-          text
-          completed
-        }
-      }
-    }
-  }
-`
+import { GetVisibilityFilter } from '../operations/queries/__generated__/GetVisibilityFilter'
 
 export default function Main () {
-  const result = useQuery(GET_LAST_TODOS);
-  console.log('result', result)
-
   const { loading: isTodosLoading, data: todosConnection, error: todosError } = useQuery<GetAllTodos>(GET_ALL_TODOS);
-  const { data: visibilityFilter } = useQuery<VisibilityFilter>(GET_VISIBILITY_FILTER);
-  
+  const { data: visibilityFilter } = useQuery<GetVisibilityFilter>(GET_VISIBILITY_FILTER);
+
   const { mutate: clearCompletedTodos } = useClearCompletedTodos();
   const { mutate: completeAllTodos } = useCompleteAllTodos();
 
@@ -41,7 +25,7 @@ export default function Main () {
   
   return (
     <MainSection
-      activeVisibilityFilter={visibilityFilter as VisibilityFilter}
+      activeVisibilityFilter={visibilityFilter?.visibilityFilter as VisibilityFilter}
       todosCount={todosConnection.todos.edges.length}
       completedCount={todos.filter(t => t ? t.completed : false).length}
       actions={{
