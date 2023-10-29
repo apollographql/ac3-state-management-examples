@@ -5,7 +5,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.9",
     "@types/react-test-renderer": "^16.9.2",
-    "react-scripts": "^3.0.0",
+    "react-scripts": "^5.0.1",
     "react-test-renderer": "^16.8.6"
   },
   "dependencies": {
